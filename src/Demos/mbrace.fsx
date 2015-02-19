@@ -7,7 +7,7 @@ open MBrace.Azure.Runtime
 open System.Threading
 open System
 
- Connect to mbrace
+// Connect to mbrace
 let config = 
     { Configuration.Default with
         StorageConnectionString = "put your storage connection string here"
