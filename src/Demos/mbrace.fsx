@@ -10,7 +10,15 @@ open System
 // Connect to mbrace
 let config = 
     { Configuration.Default with
+
+        // The storage connection string is of the form 
+        //    DefaultEndpointsProtocol=https;AccountName=myAccount;AccountKey=myKey;
+        // where myAccount and myKey are found via "Manage Access Keys" for the storage account in the 
+        // Azure management portal
         StorageConnectionString = "put your storage connection string here"
+
+        // The service bus connection string is found in the Azure management portal under
+        // "Manage Connection Strings" for the service bus
         ServiceBusConnectionString = "put your service bus connection string here" }
 
 
