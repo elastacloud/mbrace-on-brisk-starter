@@ -1,0 +1,813 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+<assembly><name>Streams.Core</name></assembly>
+<members>
+<member name="P:Nessos.Streams.Collector`2.Result">
+<summary>
+ The result of the collector.
+</summary>
+</member>
+<member name="M:Nessos.Streams.Collector`2.Iterator">
+<summary>
+ Gets an iterator over the elements.
+</summary>
+</member>
+<member name="T:Nessos.Streams.Collector`2">
+<summary>
+ Collects elements into a mutable result container.
+</summary>
+</member>
+<member name="P:Nessos.Streams.Context`1.Cts">
+<summary>
+ The current CancellationTokenSource
+</summary>
+</member>
+<member name="P:Nessos.Streams.Context`1.Complete">
+<summary>
+ The completed continuation
+</summary>
+</member>
+<member name="P:Nessos.Streams.Context`1.Cont">
+<summary>
+ The composed continutation
+</summary>
+</member>
+<member name="T:Nessos.Streams.Context`1">
+<summary>
+ Represents the current executing contex
+</summary>
+</member>
+<member name="P:Nessos.Streams.Iterable.Iterator">
+<summary>
+ Iterator for on-demand processing
+</summary>
+</member>
+<member name="P:Nessos.Streams.Iterable.Bulk">
+<summary>
+ Function for bulk processing
+</summary>
+</member>
+<member name="T:Nessos.Streams.Iterable">
+<summary>
+ Provides functions for iteration
+</summary>
+</member>
+<member name="P:Nessos.Streams.Iterator.Dispose">
+<summary>
+ Cleanup function
+</summary>
+</member>
+<member name="P:Nessos.Streams.Iterator.TryAdvance">
+<summary>
+ Function for on-demand processing
+</summary>
+</member>
+<member name="T:Nessos.Streams.Iterator">
+<summary>
+ Provides on-demand iteration 
+</summary>
+</member>
+<member name="P:Nessos.Streams.ParIterator`1.Cts">
+<summary>
+ The current CancellationTokenSource
+</summary>
+</member>
+<member name="P:Nessos.Streams.ParIterator`1.Func">
+<summary>
+ The composed continutation with &apos;T for the current value
+</summary>
+</member>
+<member name="P:Nessos.Streams.ParIterator`1.Index">
+<summary>
+ The index of the current element from the parallel source
+</summary>
+</member>
+<member name="T:Nessos.Streams.ParIterator`1">
+<summary>
+ Represents the iteration function
+</summary>
+</member>
+<member name="P:Nessos.Streams.ParStream`1.SourceType">
+<summary>
+ The Type of iteration source
+</summary>
+</member>
+<member name="P:Nessos.Streams.ParStream`1.PreserveOrdering">
+<summary>
+ A flag that indicates that the ordering in the subsequent query operators will be preserved.
+</summary>
+</member>
+<member name="P:Nessos.Streams.ParStream`1.DegreeOfParallelism">
+<summary>
+ The number of concurrently executing tasks
+</summary>
+</member>
+<member name="M:Nessos.Streams.ParStream`1.Stream">
+<summary>
+ Returns the sequential Stream
+</summary>
+</member>
+<member name="M:Nessos.Streams.ParStream`1.Apply``1(Nessos.Streams.Collector{`0,``0})">
+<summary>
+ Applies the given collector to the parallel Stream.
+</summary>
+</member>
+<member name="T:Nessos.Streams.ParStream`1">
+<summary>
+ Represents a parallel Stream of values.
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="T:Nessos.Streams.SourceType">
+<summary>
+ The Type of iteration source
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="T:Nessos.Streams.Stream`1">
+<summary>
+ Represents a Stream of values.
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="T:Nessos.Streams.Internals.ArrayCollector`1">
+<summary>
+ [omit]
+ Helper type for efficient array insertions and concatenations.
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="T:Nessos.Streams.Internals.CSharpProxy">
+<summary>
+ [omit]
+ Proxy for FSharp type specialization and lambda inlining.
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="T:Nessos.Streams.Internals.Sort">
+<summary>
+ [omit]
+ Helpers for parallel sorting.
+</summary>
+</member>
+<member name="M:Nessos.Streams.ParStream.forall``1(Microsoft.FSharp.Core.FSharpFunc{``0,System.Boolean},Nessos.Streams.ParStream{``0})">
+ <summary>Tests if all elements of the parallel stream satisfy the given predicate.</summary>
+ <param name="predicate">A function to test each source element for a condition.</param>
+ <param name="stream">The input parallel stream.</param>
+ <returns>true if all of the elements satisfies the predicate. Otherwise, returns false.</returns>
+</member>
+<member name="M:Nessos.Streams.ParStream.exists``1(Microsoft.FSharp.Core.FSharpFunc{``0,System.Boolean},Nessos.Streams.ParStream{``0})">
+ <summary>Tests if any element of the stream satisfies the given predicate.</summary>
+ <param name="predicate">A function to test each source element for a condition.</param>
+ <param name="stream">The input parallel stream.</param>
+ <returns>true if any element satisfies the predicate. Otherwise, returns false.</returns>
+</member>
+<member name="M:Nessos.Streams.ParStream.pick``2(Microsoft.FSharp.Core.FSharpFunc{``0,Microsoft.FSharp.Core.FSharpOption{``1}},Nessos.Streams.ParStream{``0})">
+ <summary>Applies the given function to successive elements, returning the first result where the function returns a Some value.
+ Raises KeyNotFoundException when every item of the parallel stream evaluates to None when the given function is applied.</summary>
+ <param name="chooser">A function that transforms items into options.</param>
+ <param name="stream">The input paralle stream.</param>
+ <returns>The first element for which the chooser returns Some, or raises KeyNotFoundException if every element evaluates to None.</returns>
+ <exception cref="System.KeyNotFoundException">Thrown if every item of the parallel stream evaluates to None when the given function is applied.</exception>
+</member>
+<member name="M:Nessos.Streams.ParStream.tryPick``2(Microsoft.FSharp.Core.FSharpFunc{``0,Microsoft.FSharp.Core.FSharpOption{``1}},Nessos.Streams.ParStream{``0})">
+ <summary>Applies the given function to successive elements, returning the first result where the function returns a Some value.</summary>
+ <param name="chooser">A function that transforms items into options.</param>
+ <param name="stream">The input parallel stream.</param>
+ <returns>The first element for which the chooser returns Some, or None if every element evaluates to None.</returns>
+</member>
+<member name="M:Nessos.Streams.ParStream.find``1(Microsoft.FSharp.Core.FSharpFunc{``0,System.Boolean},Nessos.Streams.ParStream{``0})">
+ <summary>Returns the first element for which the given function returns true. Raises KeyNotFoundException if no such element exists.</summary>
+ <param name="predicate">A function to test each source element for a condition.</param>
+ <param name="stream">The input parallel stream.</param>
+ <returns>The first element for which the predicate returns true.</returns>
+ <exception cref="System.KeyNotFoundException">Thrown if the predicate evaluates to false for all the elements of the parallel stream.</exception>
+</member>
+<member name="M:Nessos.Streams.ParStream.tryFind``1(Microsoft.FSharp.Core.FSharpFunc{``0,System.Boolean},Nessos.Streams.ParStream{``0})">
+ <summary>Returns the first element for which the given function returns true. Returns None if no such element exists.</summary>
+ <param name="predicate">A function to test each source element for a condition.</param>
+ <param name="stream">The input parallel stream.</param>
+ <returns>The first element for which the predicate returns true, or None if every element evaluates to false.</returns>
+</member>
+<member name="M:Nessos.Streams.ParStream.groupBy``2(Microsoft.FSharp.Core.FSharpFunc{``0,``1},Nessos.Streams.ParStream{``0})">
+ <summary>Applies a key-generating function to each element of the input parallel stream and yields a parallel stream of unique keys and a sequence of all elements that have each key.</summary>
+ <param name="projection">A function to transform items of the input parallel stream into comparable keys.</param>
+ <param name="stream">The input parallel stream.</param>
+ <returns>A parallel stream of tuples where each tuple contains the unique key and a sequence of all the elements that match the key.</returns>    
+</member>
+<member name="M:Nessos.Streams.ParStream.countBy``2(Microsoft.FSharp.Core.FSharpFunc{``0,``1},Nessos.Streams.ParStream{``0})">
+ <summary>
+ Applies a key-generating function to each element of a ParStream and return a ParStream yielding unique keys and their number of occurrences in the original sequence.
+ </summary>
+ <param name="projection">A function that maps items from the input ParStream to keys.</param>
+ <param name="stream">The input ParStream.</param>
+</member>
+<member name="M:Nessos.Streams.ParStream.foldBy``3(Microsoft.FSharp.Core.FSharpFunc{``0,``1},Microsoft.FSharp.Core.FSharpFunc{``2,Microsoft.FSharp.Core.FSharpFunc{``0,``2}},Microsoft.FSharp.Core.FSharpFunc{``2,Microsoft.FSharp.Core.FSharpFunc{``2,``2}},Microsoft.FSharp.Core.FSharpFunc{Microsoft.FSharp.Core.Unit,``2},Nessos.Streams.ParStream{``0})">
+ <summary>Applies a key-generating function to each element of a ParStream and return a ParStream yielding unique keys and the result of the threading an accumulator.</summary>
+ <param name="projection">A function to transform items from the input ParStream to keys.</param>
+ <param name="folder">A function that updates the state with each element from the ParStream.</param>
+ <param name="combiner">A function that combines partial states into a new state.</param>
+ <param name="state">A function that produces the initial state.</param>
+ <param name="stream">The input ParStream.</param>
+ <returns>The final result.</returns>
+</member>
+<member name="M:Nessos.Streams.ParStream.sortBy``2(Microsoft.FSharp.Core.FSharpFunc{``0,``1},Nessos.Streams.ParStream{``0})">
+ <summary>Applies a key-generating function to each element of the input parallel stream and yields a parallel stream ordered by keys.</summary>
+ <param name="projection">A function to transform items of the input parallel stream into comparable keys.</param>
+ <param name="stream">The input parallel stream.</param>
+ <returns>The result parallel stream.</returns>    
+</member>
+<member name="M:Nessos.Streams.ParStream.minBy``2(Microsoft.FSharp.Core.FSharpFunc{``0,``1},Nessos.Streams.ParStream{``0})">
+ <summary>Locates the minimum element of the parallel stream by given key.</summary>
+ <param name="projection">A function to transform items of the input parallel stream into comparable keys.</param>
+ <param name="source">The input parallel stream.</param>
+ <returns>The maximum item.</returns>  
+</member>
+<member name="M:Nessos.Streams.ParStream.maxBy``2(Microsoft.FSharp.Core.FSharpFunc{``0,``1},Nessos.Streams.ParStream{``0})">
+ <summary>Locates the maximum element of the parallel stream by given key.</summary>
+ <param name="projection">A function to transform items of the input parallel stream into comparable keys.</param>
+ <param name="source">The input parallel stream.</param>
+ <returns>The maximum item.</returns>  
+</member>
+<member name="M:Nessos.Streams.ParStream.toSeq``1(Nessos.Streams.ParStream{``0})">
+ <summary>Creates an Seq from the given parallel stream.</summary>
+ <param name="stream">The input parallel stream.</param>
+ <returns>The result Seq.</returns>    
+</member>
+<member name="M:Nessos.Streams.ParStream.toResizeArray``1(Nessos.Streams.ParStream{``0})">
+ <summary>Creates an ResizeArray from the given parallel stream.</summary>
+ <param name="stream">The input parallel stream.</param>
+ <returns>The result ResizeArray.</returns>    
+</member>
+<member name="M:Nessos.Streams.ParStream.toArray``1(Nessos.Streams.ParStream{``0})">
+ <summary>Creates an array from the given parallel stream.</summary>
+ <param name="stream">The input parallel stream.</param>
+ <returns>The result array.</returns>    
+</member>
+<member name="M:Nessos.Streams.ParStream.length``1(Nessos.Streams.ParStream{``0})">
+ <summary>Returns the total number of elements of the parallel stream.</summary>
+ <param name="stream">The input parallel stream.</param>
+ <returns>The total number of elements.</returns>
+</member>
+<member name="M:Nessos.Streams.ParStream.sum``1(Nessos.Streams.ParStream{``0})">
+ <summary>Returns the sum of the elements.</summary>
+ <param name="stream">The input parallel stream.</param>
+ <returns>The sum of the elements.</returns>
+</member>
+<member name="M:Nessos.Streams.ParStream.fold``2(Microsoft.FSharp.Core.FSharpFunc{``0,Microsoft.FSharp.Core.FSharpFunc{``1,``0}},Microsoft.FSharp.Core.FSharpFunc{``0,Microsoft.FSharp.Core.FSharpFunc{``0,``0}},Microsoft.FSharp.Core.FSharpFunc{Microsoft.FSharp.Core.Unit,``0},Nessos.Streams.ParStream{``1})">
+ <summary>Applies a function to each element of the parallel stream, threading an accumulator argument through the computation. If the input function is f and the elements are i0...iN, then this function computes f (... (f s i0)...) iN.</summary>
+ <param name="folder">A function that updates the state with each element from the parallel stream.</param>
+ <param name="combiner">A function that combines partial states into a new state.</param>
+ <param name="state">A function that produces the initial state.</param>
+ <param name="stream">The input parallel stream.</param>
+ <returns>The final result.</returns>
+</member>
+<member name="M:Nessos.Streams.ParStream.iter``1(Microsoft.FSharp.Core.FSharpFunc{``0,Microsoft.FSharp.Core.Unit},Nessos.Streams.ParStream{``0})">
+ <summary>Applies the given function to each element of the parallel stream.</summary>
+ <param name="f">A function to apply to each element of the parallel stream.</param>
+ <param name="stream">The input parallel stream.</param>    
+</member>
+<member name="M:Nessos.Streams.ParStream.skip``1(System.Int32,Nessos.Streams.ParStream{``0})">
+ <summary>Returns a parallel stream that skips N elements of the input parallel stream and then yields the remaining elements of the stream.</summary>
+ <param name="n">The number of items to skip.</param>
+ <param name="stream">The input parallel stream.</param>
+ <returns>The result parallel stream.</returns>
+</member>
+<member name="M:Nessos.Streams.ParStream.take``1(System.Int32,Nessos.Streams.ParStream{``0})">
+ <summary>Returns the elements of the parallel stream up to a specified count.</summary>
+ <param name="n">The number of items to take.</param>
+ <param name="stream">The input parallel stream.</param>
+ <returns>The result prallel stream.</returns>
+</member>
+<member name="M:Nessos.Streams.ParStream.choose``2(Microsoft.FSharp.Core.FSharpFunc{``0,Microsoft.FSharp.Core.FSharpOption{``1}},Nessos.Streams.ParStream{``0})">
+ <summary>Applies the given function to each element of the parallel stream and returns the parallel stream comprised of the results for each element where the function returns Some with some value.</summary>
+ <param name="chooser">A function to transform items of type 'T into options of type 'R.</param>
+ <param name="stream">The input parallel stream.</param>
+ <returns>The result parallel stream.</returns>
+</member>
+<member name="M:Nessos.Streams.ParStream.filter``1(Microsoft.FSharp.Core.FSharpFunc{``0,System.Boolean},Nessos.Streams.ParStream{``0})">
+ <summary>Filters the elements of the input parallel stream.</summary>
+ <param name="predicate">A function to test each source element for a condition.</param>
+ <param name="stream">The input parallel stream.</param>
+ <returns>The result parallel stream.</returns>
+</member>
+<member name="M:Nessos.Streams.ParStream.collect``2(Microsoft.FSharp.Core.FSharpFunc{``0,Nessos.Streams.Stream{``1}},Nessos.Streams.ParStream{``0})">
+ <summary>Transforms each element of the input parallel stream to a new stream and flattens its elements.</summary>
+ <param name="f">A function to transform items from the input parallel stream.</param>
+ <param name="stream">The input parallel stream.</param>
+ <returns>The result parallel stream.</returns>
+</member>
+<member name="M:Nessos.Streams.ParStream.flatMap``2(Microsoft.FSharp.Core.FSharpFunc{``0,Nessos.Streams.Stream{``1}},Nessos.Streams.ParStream{``0})">
+ <summary>Transforms each element of the input parallel stream to a new stream and flattens its elements.</summary>
+ <param name="f">A function to transform items from the input parallel stream.</param>
+ <param name="stream">The input parallel stream.</param>
+ <returns>The result parallel stream.</returns>
+</member>
+<member name="M:Nessos.Streams.ParStream.mapi``2(Microsoft.FSharp.Core.FSharpFunc{System.Int32,Microsoft.FSharp.Core.FSharpFunc{``0,``1}},Nessos.Streams.ParStream{``0})">
+ <summary>Transforms each element of the input parallel stream. The integer index passed to the function indicates the index of element being transformed.</summary>
+ <param name="f">A function to transform items from the input parallel stream.</param>
+ <param name="stream">The input parallel stream.</param>
+ <returns>The result parallel stream.</returns>
+</member>
+<member name="M:Nessos.Streams.ParStream.map``2(Microsoft.FSharp.Core.FSharpFunc{``0,``1},Nessos.Streams.ParStream{``0})">
+ <summary>Transforms each element of the input parallel stream.</summary>
+ <param name="f">A function to transform items from the input parallel stream.</param>
+ <param name="stream">The input parallel stream.</param>
+ <returns>The result parallel stream.</returns>
+</member>
+<member name="M:Nessos.Streams.ParStream.unordered``1(Nessos.Streams.ParStream{``0})">
+ <summary>Returns a parallel stream that is unordered.</summary>
+ <param name="stream">The input parallel stream.</param>
+ <returns>The result parallel stream as unordered.</returns>
+</member>
+<member name="M:Nessos.Streams.ParStream.ordered``1(Nessos.Streams.ParStream{``0})">
+ <summary>Returns a parallel stream that preserves ordering.</summary>
+ <param name="stream">The input parallel stream.</param>
+ <returns>The result parallel stream as ordered.</returns>
+</member>
+<member name="M:Nessos.Streams.ParStream.withDegreeOfParallelism``1(System.Int32,Nessos.Streams.ParStream{``0})">
+ <summary>Returns a parallel stream with a new degree of parallelism.</summary>
+ <param name="degreeOfParallelism">The degree of parallelism.</param>
+ <param name="stream">The input parallel stream.</param>
+ <returns>The result parallel stream.</returns>
+</member>
+<member name="M:Nessos.Streams.ParStream.ofSeq``1(System.Collections.Generic.IEnumerable{``0})">
+ <summary>Wraps seq as a parallel stream.</summary>
+ <param name="source">The input seq.</param>
+ <returns>The result parallel stream.</returns>
+</member>
+<member name="M:Nessos.Streams.ParStream.ofResizeArray``1(System.Collections.Generic.List{``0})">
+ <summary>Wraps ResizeArray as a parallel stream.</summary>
+ <param name="source">The input array.</param>
+ <returns>The result parallel stream.</returns>
+</member>
+<member name="M:Nessos.Streams.ParStream.ofArray``1(``0[])">
+ <summary>Wraps array as a parallel stream.</summary>
+ <param name="source">The input array.</param>
+ <returns>The result parallel stream.</returns>
+</member>
+<member name="">
+
+</member>
+<member name="T:Nessos.Streams.ParStream">
+<summary>
+ Provides basic operations on Parallel Streams.
+</summary>
+</member>
+<member name="M:Nessos.Streams.Stream.groupUntil``1(System.Boolean,Microsoft.FSharp.Core.FSharpFunc{``0,System.Boolean},Nessos.Streams.Stream{``0})">
+ <summary>
+     Separates stream elements into groups until predicate is satisfied.
+     Elements not satisfying the predicate are included as final element in grouping
+     or discarded depending on the 'inclusive' parameter.
+ </summary>
+ <param name="inclusive">Include elements not satisfying the predicate to the last grouping. Discarded otherwise.</param>
+ <param name="predicate">Grouping predicate.</param>
+ <param name="source">Source stream.</param>
+</member>
+<member name="M:Nessos.Streams.Stream.forall``1(Microsoft.FSharp.Core.FSharpFunc{``0,System.Boolean},Nessos.Streams.Stream{``0})">
+ <summary>Tests if all elements of the stream satisfy the given predicate.</summary>
+ <param name="predicate">A function to test each source element for a condition.</param>
+ <param name="stream">The input stream.</param>
+ <returns>true if all of the elements satisfies the predicate. Otherwise, returns false.</returns>
+</member>
+<member name="M:Nessos.Streams.Stream.exists``1(Microsoft.FSharp.Core.FSharpFunc{``0,System.Boolean},Nessos.Streams.Stream{``0})">
+ <summary>Tests if any element of the stream satisfies the given predicate.</summary>
+ <param name="predicate">A function to test each source element for a condition.</param>
+ <param name="stream">The input stream.</param>
+ <returns>true if any element satisfies the predicate. Otherwise, returns false.</returns>
+</member>
+<member name="M:Nessos.Streams.Stream.pick``2(Microsoft.FSharp.Core.FSharpFunc{``0,Microsoft.FSharp.Core.FSharpOption{``1}},Nessos.Streams.Stream{``0})">
+ <summary>Applies the given function to successive elements, returning the first result where the function returns a Some value.
+ Raises KeyNotFoundException when every item of the stream evaluates to None when the given function is applied.</summary>
+ <param name="chooser">A function that transforms items into options.</param>
+ <param name="stream">The input stream.</param>
+ <returns>The first element for which the chooser returns Some, or raises KeyNotFoundException if every element evaluates to None.</returns>
+ <exception cref="System.KeyNotFoundException">Thrown if every item of the stream evaluates to None when the given function is applied.</exception>
+</member>
+<member name="M:Nessos.Streams.Stream.tryPick``2(Microsoft.FSharp.Core.FSharpFunc{``0,Microsoft.FSharp.Core.FSharpOption{``1}},Nessos.Streams.Stream{``0})">
+ <summary>Applies the given function to successive elements, returning the first result where the function returns a Some value.</summary>
+ <param name="chooser">A function that transforms items into options.</param>
+ <param name="stream">The input stream.</param>
+ <returns>The first element for which the chooser returns Some, or None if every element evaluates to None.</returns>
+</member>
+<member name="M:Nessos.Streams.Stream.find``1(Microsoft.FSharp.Core.FSharpFunc{``0,System.Boolean},Nessos.Streams.Stream{``0})">
+ <summary>Returns the first element for which the given function returns true. Raises KeyNotFoundException if no such element exists.</summary>
+ <param name="predicate">A function to test each source element for a condition.</param>
+ <param name="stream">The input stream.</param>
+ <returns>The first element for which the predicate returns true.</returns>
+ <exception cref="System.KeyNotFoundException">Thrown if the predicate evaluates to false for all the elements of the stream.</exception>
+</member>
+<member name="M:Nessos.Streams.Stream.tryFind``1(Microsoft.FSharp.Core.FSharpFunc{``0,System.Boolean},Nessos.Streams.Stream{``0})">
+ <summary>Returns the first element for which the given function returns true. Returns None if no such element exists.</summary>
+ <param name="predicate">A function to test each source element for a condition.</param>
+ <param name="stream">The input stream.</param>
+ <returns>The first element for which the predicate returns true, or None if every element evaluates to false.</returns>
+</member>
+<member name="M:Nessos.Streams.Stream.countBy``2(Microsoft.FSharp.Core.FSharpFunc{``0,``1},Nessos.Streams.Stream{``0})">
+ <summary>Applies a key-generating function to each element of the input stream and yields a stream of unique keys and their frequency.</summary>
+ <param name="projection">A function to transform items of the input stream into comparable keys.</param>
+ <param name="stream">The input stream.</param>
+ <returns>A stream of tuples where each tuple contains the unique key and a sequence of all the elements that match the key.</returns>    
+</member>
+<member name="M:Nessos.Streams.Stream.groupBy``2(Microsoft.FSharp.Core.FSharpFunc{``0,``1},Nessos.Streams.Stream{``0})">
+ <summary>Applies a key-generating function to each element of the input stream and yields a stream of unique keys and a sequence of all elements that have each key.</summary>
+ <param name="projection">A function to transform items of the input stream into comparable keys.</param>
+ <param name="source">The input stream.</param>
+ <returns>A stream of tuples where each tuple contains the unique key and a sequence of all the elements that match the key.</returns>    
+</member>
+<member name="M:Nessos.Streams.Stream.foldBy``3(Microsoft.FSharp.Core.FSharpFunc{``0,``1},Microsoft.FSharp.Core.FSharpFunc{``2,Microsoft.FSharp.Core.FSharpFunc{``0,``2}},Microsoft.FSharp.Core.FSharpFunc{Microsoft.FSharp.Core.Unit,``2},Nessos.Streams.Stream{``0})">
+ <summary>Applies a state-updating function to a stream of inputs, grouped by key projection.</summary>
+ <param name="projection">A function to transform items of the input stream into comparable keys.</param>
+ <param name="folder">Folding function.</param>
+ <param name="init">State initializing function.</param>
+ <param name="source">The input stream.</param>
+ <returns>A stream of tuples where each tuple contains the unique key and a sequence of all the elements that match the key.</returns>    
+</member>
+<member name="M:Nessos.Streams.Stream.minBy``2(Microsoft.FSharp.Core.FSharpFunc{``0,``1},Nessos.Streams.Stream{``0})">
+ <summary>Locates the minimum element of the stream by given key.</summary>
+ <param name="projection">A function to transform items of the input stream into comparable keys.</param>
+ <param name="source">The input stream.</param>
+ <returns>The maximum item.</returns>  
+</member>
+<member name="M:Nessos.Streams.Stream.maxBy``2(Microsoft.FSharp.Core.FSharpFunc{``0,``1},Nessos.Streams.Stream{``0})">
+ <summary>Locates the maximum element of the stream by given key.</summary>
+ <param name="projection">A function to transform items of the input stream into comparable keys.</param>
+ <param name="source">The input stream.</param>
+ <returns>The maximum item.</returns>  
+</member>
+<member name="M:Nessos.Streams.Stream.sortBy``2(Microsoft.FSharp.Core.FSharpFunc{``0,``1},Nessos.Streams.Stream{``0})">
+ <summary>Applies a key-generating function to each element of the input stream and yields a stream ordered by keys. </summary>
+ <param name="projection">A function to transform items of the input stream into comparable keys.</param>
+ <param name="stream">The input stream.</param>
+ <returns>The result stream.</returns>  
+</member>
+<member name="M:Nessos.Streams.Stream.toArray``1(Nessos.Streams.Stream{``0})">
+ <summary>Creates an array from the given stream.</summary>
+ <param name="stream">The input stream.</param>
+ <returns>The result array.</returns>    
+</member>
+<member name="M:Nessos.Streams.Stream.toResizeArray``1(Nessos.Streams.Stream{``0})">
+ <summary>Creates an ResizeArray from the given stream.</summary>
+ <param name="stream">The input stream.</param>
+ <returns>The result ResizeArray.</returns>    
+</member>
+<member name="M:Nessos.Streams.Stream.toSeq``1(Nessos.Streams.Stream{``0})">
+ <summary>Creates an Seq from the given stream.</summary>
+ <param name="stream">The input stream.</param>
+ <returns>The result Seq.</returns>    
+</member>
+<member name="M:Nessos.Streams.Stream.iter``1(Microsoft.FSharp.Core.FSharpFunc{``0,Microsoft.FSharp.Core.Unit},Nessos.Streams.Stream{``0})">
+ <summary>Applies the given function to each element of the stream.</summary>
+ <param name="f">A function to apply to each element of the stream.</param>
+ <param name="stream">The input stream.</param>    
+</member>
+<member name="M:Nessos.Streams.Stream.length``1(Nessos.Streams.Stream{``0})">
+ <summary>Returns the total number of elements of the stream.</summary>
+ <param name="stream">The input stream.</param>
+ <returns>The total number of elements.</returns>
+</member>
+<member name="M:Nessos.Streams.Stream.sum``1(Nessos.Streams.Stream{``0})">
+ <summary>Returns the sum of the elements.</summary>
+ <param name="stream">The input stream.</param>
+ <returns>The sum of the elements.</returns>
+</member>
+<member name="M:Nessos.Streams.Stream.fold``2(Microsoft.FSharp.Core.FSharpFunc{``0,Microsoft.FSharp.Core.FSharpFunc{``1,``0}},``0,Nessos.Streams.Stream{``1})">
+ <summary>Applies a function to each element of the stream, threading an accumulator argument through the computation. If the input function is f and the elements are i0...iN, then this function computes f (... (f s i0)...) iN.</summary>
+ <param name="folder">A function that updates the state with each element from the stream.</param>
+ <param name="state">The initial state.</param>
+ <param name="stream">The input stream.</param>
+ <returns>The final result.</returns>
+</member>
+<member name="M:Nessos.Streams.Stream.zipWith``3(Microsoft.FSharp.Core.FSharpFunc{``0,Microsoft.FSharp.Core.FSharpFunc{``1,``2}},Nessos.Streams.Stream{``0},Nessos.Streams.Stream{``1})">
+ <summary>Applies a specified function to the corresponding elements of two streams, producing a stream of the results.</summary>
+ <param name="f">The combiner function.</param>
+ <param name="first">The first input stream.</param>
+ <param name="second">The second input stream.</param>
+ <returns>The result stream.</returns>
+</member>
+<member name="M:Nessos.Streams.Stream.concat``2(``0)">
+ <summary>Concatenates a collection of streams.</summary>
+ <param name="streams">The sequence of streams to concatenate.</param>
+ <returns>The concatenated stream.</returns>
+</member>
+<member name="M:Nessos.Streams.Stream.skip``1(System.Int32,Nessos.Streams.Stream{``0})">
+ <summary>Returns a stream that skips N elements of the input stream and then yields the remaining elements of the stream.</summary>
+ <param name="n">The number of items to skip.</param>
+ <param name="stream">The input stream.</param>
+ <returns>The result stream.</returns>
+</member>
+<member name="M:Nessos.Streams.Stream.takeWhile``1(Microsoft.FSharp.Core.FSharpFunc{``0,System.Boolean},Nessos.Streams.Stream{``0})">
+ <summary>Returns the elements of the stream while the given predicate returns true.</summary>
+ <param name="pred">The predicate function.</param>
+ <param name="stream">The input stream.</param>
+ <returns>The result stream.</returns>
+</member>
+<member name="M:Nessos.Streams.Stream.take``1(System.Int32,Nessos.Streams.Stream{``0})">
+ <summary>Returns the elements of the stream up to a specified count.</summary>
+ <param name="n">The number of items to take.</param>
+ <param name="stream">The input stream.</param>
+ <returns>The result stream.</returns>
+</member>
+<member name="M:Nessos.Streams.Stream.choose``2(Microsoft.FSharp.Core.FSharpFunc{``0,Microsoft.FSharp.Core.FSharpOption{``1}},Nessos.Streams.Stream{``0})">
+ <summary>Applies the given function to each element of the stream and returns the stream comprised of the results for each element where the function returns Some with some value.</summary>
+ <param name="chooser">A function to transform items of type 'T into options of type 'R.</param>
+ <param name="stream">The input stream.</param>
+ <returns>The result stream.</returns>
+</member>
+<member name="M:Nessos.Streams.Stream.filter``1(Microsoft.FSharp.Core.FSharpFunc{``0,System.Boolean},Nessos.Streams.Stream{``0})">
+ <summary>Filters the elements of the input stream.</summary>
+ <param name="predicate">A function to test each source element for a condition.</param>
+ <param name="stream">The input stream.</param>
+ <returns>The result stream.</returns>
+</member>
+<member name="M:Nessos.Streams.Stream.cache``1(Nessos.Streams.Stream{``0})">
+ <summary>Creates a cached version of the input stream.</summary>
+ <param name="source">The input stream.</param>
+ <returns>The cached stream.</returns>
+</member>
+<member name="M:Nessos.Streams.Stream.collect``2(Microsoft.FSharp.Core.FSharpFunc{``0,Nessos.Streams.Stream{``1}},Nessos.Streams.Stream{``0})">
+ <summary>Transforms each element of the input stream to a new stream and flattens its elements.</summary>
+ <param name="f">A function to transform items from the input stream.</param>
+ <param name="stream">The input stream.</param>
+ <returns>The result stream.</returns>
+</member>
+<member name="M:Nessos.Streams.Stream.flatMap``2(Microsoft.FSharp.Core.FSharpFunc{``0,Nessos.Streams.Stream{``1}},Nessos.Streams.Stream{``0})">
+ <summary>Transforms each element of the input stream to a new stream and flattens its elements.</summary>
+ <param name="f">A function to transform items from the input stream.</param>
+ <param name="stream">The input stream.</param>
+ <returns>The result stream.</returns>
+</member>
+<member name="M:Nessos.Streams.Stream.mapi``2(Microsoft.FSharp.Core.FSharpFunc{System.Int32,Microsoft.FSharp.Core.FSharpFunc{``0,``1}},Nessos.Streams.Stream{``0})">
+ <summary>Transforms each element of the input stream. The integer index passed to the function indicates the index (from 0) of element being transformed.</summary>
+ <param name="f">A function to transform items and also supplies the current index.</param>
+ <param name="stream">The input stream.</param>
+ <returns>The result stream.</returns>
+</member>
+<member name="M:Nessos.Streams.Stream.map``2(Microsoft.FSharp.Core.FSharpFunc{``0,``1},Nessos.Streams.Stream{``0})">
+ <summary>Transforms each element of the input stream.</summary>
+ <param name="f">A function to transform items from the input stream.</param>
+ <param name="stream">The input stream.</param>
+ <returns>The result stream.</returns>
+</member>
+<member name="M:Nessos.Streams.Stream.cast``1(System.Collections.IEnumerable)">
+ <summary>Wraps an IEnumerable as a stream.</summary>
+ <param name="source">The input seq.</param>
+ <returns>The result stream.</returns>
+</member>
+<member name="M:Nessos.Streams.Stream.ofSeq``1(System.Collections.Generic.IEnumerable{``0})">
+ <summary>Wraps seq as a stream.</summary>
+ <param name="source">The input seq.</param>
+ <returns>The result stream.</returns>
+</member>
+<member name="M:Nessos.Streams.Stream.ofResizeArray``1(System.Collections.Generic.List{``0})">
+ <summary>Wraps ResizeArray as a stream.</summary>
+ <param name="source">The input array.</param>
+ <returns>The result stream.</returns>
+</member>
+<member name="M:Nessos.Streams.Stream.ofArray``1(``0[])">
+ <summary>Wraps array as a stream.</summary>
+ <param name="source">The input array.</param>
+ <returns>The result stream.</returns>
+</member>
+<member name="M:Nessos.Streams.Stream.singleton``1(``0)">
+ <summary>Creates a singleton stream.</summary>
+ <param name="source">The singleton stream element</param>
+ <returns>A stream of just the given element</returns>
+</member>
+<member name="M:Nessos.Streams.Stream.empty``1">
+ <summary>The empty stream.</summary>
+ <returns>An empty stream.</returns>
+</member>
+<member name="T:Nessos.Streams.Stream">
+<summary>
+ Provides basic operations on Streams.
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="T:System.AssemblyVersionInformation">
+
+</member>
+</members>
+</doc>

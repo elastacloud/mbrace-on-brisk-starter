@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+<assembly><name>MBrace.Azure.Runtime</name></assembly>
+<members>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="M:MBrace.Azure.Runtime.Service.#ctor(MBrace.Azure.Runtime.Configuration)">
+<summary>
+ MBrace Runtime Service.
+</summary>
+</member>
+<member name="">
+
+</member>
+<member name="T:MBrace.Azure.Runtime.Service">
+<summary>
+ MBrace Runtime Service.
+</summary>
+</member>
+<member name="M:MBrace.Azure.Runtime.Worker.initWorker(MBrace.Azure.Runtime.RuntimeState,System.Int32,MBrace.Continuation.ResourceRegistry,MBrace.Store.ICloudFileStore,MBrace.Store.ICloudChannelProvider,MBrace.Store.ICloudAtomProvider)">
+ <summary>
+     Initializes a worker loop. Worker polls task queue of supplied
+     runtime for available tasks and executes as appropriate.
+ </summary>
+ <param name="runtime">Runtime to subscribe to.</param>
+ <param name="maxConcurrentTasks">Maximum tasks to be executed concurrently by worker.</param>
+</member>
+<member name="T:MBrace.Azure.Runtime.Worker">
+
+</member>
+<member name="">
+
+</member>
+<member name="T:System.AssemblyVersionInformation">
+
+</member>
+</members>
+</doc>

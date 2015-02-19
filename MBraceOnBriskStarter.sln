@@ -1,0 +1,86 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "slides", "slides", "{218E71CD-5FD1-4E49-BF51-59CCFD4FD1CE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "lib", "lib", "{0B479377-71B6-4B38-A94C-9F42BFF0E23F}"
+	ProjectSection(SolutionItems) = preProject
+		lib\FsPickler.dll = lib\FsPickler.dll
+		lib\FsPickler.pdb = lib\FsPickler.pdb
+		lib\FsPickler.xml = lib\FsPickler.xml
+		lib\MBrace.Azure.Client.dll = lib\MBrace.Azure.Client.dll
+		lib\MBrace.Azure.Client.dll.config = lib\MBrace.Azure.Client.dll.config
+		lib\MBrace.Azure.Client.pdb = lib\MBrace.Azure.Client.pdb
+		lib\MBrace.Azure.Client.XML = lib\MBrace.Azure.Client.XML
+		lib\MBrace.Azure.Runtime.Common.dll = lib\MBrace.Azure.Runtime.Common.dll
+		lib\MBrace.Azure.Runtime.Common.dll.config = lib\MBrace.Azure.Runtime.Common.dll.config
+		lib\MBrace.Azure.Runtime.Common.pdb = lib\MBrace.Azure.Runtime.Common.pdb
+		lib\MBrace.Azure.Runtime.Common.XML = lib\MBrace.Azure.Runtime.Common.XML
+		lib\MBrace.Azure.Runtime.dll = lib\MBrace.Azure.Runtime.dll
+		lib\MBrace.Azure.Runtime.dll.config = lib\MBrace.Azure.Runtime.dll.config
+		lib\MBrace.Azure.Runtime.pdb = lib\MBrace.Azure.Runtime.pdb
+		lib\MBrace.Azure.Runtime.Standalone.exe = lib\MBrace.Azure.Runtime.Standalone.exe
+		lib\MBrace.Azure.Runtime.Standalone.exe.config = lib\MBrace.Azure.Runtime.Standalone.exe.config
+		lib\MBrace.Azure.Runtime.Standalone.pdb = lib\MBrace.Azure.Runtime.Standalone.pdb
+		lib\MBrace.Azure.Runtime.Standalone.XML = lib\MBrace.Azure.Runtime.Standalone.XML
+		lib\MBrace.Azure.Runtime.XML = lib\MBrace.Azure.Runtime.XML
+		lib\MBrace.Azure.Store.dll = lib\MBrace.Azure.Store.dll
+		lib\MBrace.Azure.Store.pdb = lib\MBrace.Azure.Store.pdb
+		lib\MBrace.Azure.Store.xml = lib\MBrace.Azure.Store.xml
+		lib\MBrace.Core.dll = lib\MBrace.Core.dll
+		lib\MBrace.Core.pdb = lib\MBrace.Core.pdb
+		lib\MBrace.Core.xml = lib\MBrace.Core.xml
+		lib\MBrace.Library.dll = lib\MBrace.Library.dll
+		lib\MBrace.Library.pdb = lib\MBrace.Library.pdb
+		lib\MBrace.Library.xml = lib\MBrace.Library.xml
+		lib\MBrace.Runtime.Core.dll = lib\MBrace.Runtime.Core.dll
+		lib\MBrace.Runtime.Core.pdb = lib\MBrace.Runtime.Core.pdb
+		lib\MBrace.Runtime.Core.xml = lib\MBrace.Runtime.Core.xml
+		lib\Microsoft.Data.Edm.dll = lib\Microsoft.Data.Edm.dll
+		lib\Microsoft.Data.Edm.xml = lib\Microsoft.Data.Edm.xml
+		lib\Microsoft.Data.OData.dll = lib\Microsoft.Data.OData.dll
+		lib\Microsoft.Data.OData.xml = lib\Microsoft.Data.OData.xml
+		lib\Microsoft.Data.Services.Client.dll = lib\Microsoft.Data.Services.Client.dll
+		lib\Microsoft.Data.Services.Client.xml = lib\Microsoft.Data.Services.Client.xml
+		lib\Microsoft.ServiceBus.dll = lib\Microsoft.ServiceBus.dll
+		lib\Microsoft.ServiceBus.xml = lib\Microsoft.ServiceBus.xml
+		lib\Microsoft.WindowsAzure.Configuration.dll = lib\Microsoft.WindowsAzure.Configuration.dll
+		lib\Microsoft.WindowsAzure.Configuration.xml = lib\Microsoft.WindowsAzure.Configuration.xml
+		lib\Microsoft.WindowsAzure.Storage.dll = lib\Microsoft.WindowsAzure.Storage.dll
+		lib\Microsoft.WindowsAzure.Storage.xml = lib\Microsoft.WindowsAzure.Storage.xml
+		lib\Mono.Cecil.dll = lib\Mono.Cecil.dll
+		lib\Newtonsoft.Json.dll = lib\Newtonsoft.Json.dll
+		lib\Newtonsoft.Json.xml = lib\Newtonsoft.Json.xml
+		lib\System.Spatial.dll = lib\System.Spatial.dll
+		lib\System.Spatial.xml = lib\System.Spatial.xml
+		lib\Vagrant.Cecil.dll = lib\Vagrant.Cecil.dll
+		lib\Vagrant.Cecil.pdb = lib\Vagrant.Cecil.pdb
+		lib\Vagrant.dll = lib\Vagrant.dll
+		lib\Vagrant.pdb = lib\Vagrant.pdb
+		lib\Vagrant.xml = lib\Vagrant.xml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{E82BB040-2AC0-41DC-BF62-1D4620D4D501}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Demos", "src\Demos\Demos.fsproj", "{DF4661CC-A8B7-418F-A977-51A4B6CBC803}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F484BD2C-784B-4660-B2B9-F1524C7975DC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DF4661CC-A8B7-418F-A977-51A4B6CBC803}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF4661CC-A8B7-418F-A977-51A4B6CBC803}.Release|Any CPU.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{DF4661CC-A8B7-418F-A977-51A4B6CBC803} = {E82BB040-2AC0-41DC-BF62-1D4620D4D501}
+	EndGlobalSection
+EndGlobal

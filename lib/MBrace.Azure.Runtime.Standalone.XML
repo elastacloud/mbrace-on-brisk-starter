@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+<assembly><name>MBrace.Azure.Runtime.Standalone</name></assembly>
+<members>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="">
+
+</member>
+<member name="T:MBrace.Azure.Runtime.Standalone.Argument">
+<summary>
+ BASE64 serialized argument parsing schema
+</summary>
+</member>
+<member name="M:MBrace.Azure.Runtime.Standalone.Extensions.Runtime.set_WorkerExecutable.Static(System.String)">
+<summary>
+ Gets or sets the worker executable location.
+</summary>
+</member>
+<member name="M:MBrace.Azure.Runtime.Standalone.Extensions.Runtime.get_WorkerExecutable.Static">
+<summary>
+ Gets or sets the worker executable location.
+</summary>
+</member>
+<member name="M:MBrace.Azure.Runtime.Standalone.Extensions.Runtime.InitLocal.Static(MBrace.Azure.Runtime.Configuration,System.Int32,Microsoft.FSharp.Core.FSharpOption{System.Int32})">
+<summary>
+ Initialize a new local runtime instance with supplied worker count and return a handle.
+</summary>
+</member>
+<member name="M:MBrace.Azure.Runtime.Standalone.Extensions.Runtime.Spawn.Static(MBrace.Azure.Runtime.Configuration,System.Int32,Microsoft.FSharp.Core.FSharpOption{System.Int32})">
+<summary>
+ Initialize a new local runtime instance with supplied worker count.
+</summary>
+</member>
+<member name="T:MBrace.Azure.Runtime.Standalone.Extensions">
+
+</member>
+<member name="">
+
+</member>
+<member name="T:MBrace.Azure.Runtime.Standalone.Program">
+
+</member>
+<member name="">
+
+</member>
+<member name="T:System.AssemblyVersionInformation">
+
+</member>
+</members>
+</doc>
