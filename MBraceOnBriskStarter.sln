@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "slides", "slides", "{218E71CD-5FD1-4E49-BF51-59CCFD4FD1CE}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "lib", "lib", "{0B479377-71B6-4B38-A94C-9F42BFF0E23F}"
 	ProjectSection(SolutionItems) = preProject
 		lib\FsPickler.dll = lib\FsPickler.dll
@@ -65,8 +63,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{E82BB040-2AC0-41DC-BF62-1D4620D4D501}"
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Demos", "src\Demos\Demos.fsproj", "{DF4661CC-A8B7-418F-A977-51A4B6CBC803}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F484BD2C-784B-4660-B2B9-F1524C7975DC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
