@@ -5,7 +5,6 @@ open MBrace
 open MBrace.Azure
 open MBrace.Azure.Client
 open MBrace.Azure.Runtime
-open Helpers
 
 (**
  This demo shows how to start performing distributed workloads on MBrace clusters.

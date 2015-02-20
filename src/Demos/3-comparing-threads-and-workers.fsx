@@ -7,7 +7,6 @@ open MBrace
 open MBrace.Azure
 open MBrace.Azure.Client
 open MBrace.Azure.Runtime
-open Helpers
 
 (**
  This demo illustrates the different way of calculating scalable workloads
