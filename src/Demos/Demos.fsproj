@@ -56,8 +56,14 @@
   </Choose>
   <Import Project="$(FSharpTargetsPath)" />
   <ItemGroup>
-    <Compile Include="addreferences.fsx" />
-    <None Include="mbrace.fsx" />
+    <Compile Include="helpers.fsx" />
+    <None Include="1-hello-world.fsx">
+      <SubType>
+      </SubType>
+    </None>
+    <None Include="2-distributing-work.fsx" />
+    <None Include="3-comparing-threads-and-workers.fsx" />
+    <None Include="4-advanced.fsx" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />
