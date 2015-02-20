@@ -67,6 +67,7 @@
     <None Include="3-comparing-threads-and-workers.fsx" />
     <None Include="4-parallel-web-download.fsx" />
     <None Include="5-cloud-streams.fsx" />
+    <None Include="6-nuget-packages.fsx" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />
