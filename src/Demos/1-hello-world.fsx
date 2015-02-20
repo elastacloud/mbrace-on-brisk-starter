@@ -1,4 +1,5 @@
 ﻿#load "helpers.fsx"
+#load "credentials.fsx"
 open MBrace
 open MBrace.Azure.Client
 open MBrace.Azure.Runtime
@@ -13,24 +14,19 @@ open Helpers
 
  *Make sure you have a queue called "mbraceruntimetaskqueue" in your Azure Service Bus before you create your cluster.*
 
+ Before running, edit credentials.fsx to enter your connection strings.
+
  **)
 
 // First connect to the cluster using a configuration to bind to your storage and service bus on Azure.
 //
-// The connection strings can be found under "Cloud Service" --> "Configure" --> scroll down to "MBraceWorkerRole"
-//
-// The storage connection string is of the form 
-//    DefaultEndpointsProtocol=https;AccountName=myAccount;AccountKey=myKey
-//
-// The service bus connection string can also be found in the Azure management portal under
-// "Manage Connection Strings" for the service bus
-
-// The helper functions createStorageConnectionString and createServiceBusConnectionString are used to correctly form a connection strings.
+// Before running, edit credentials.fsx to enter your connection strings.
 
 let config = 
     { Configuration.Default with
-        StorageConnectionString = createStorageConnectionString("storageAccount", "key")
-        ServiceBusConnectionString = createServiceBusConnectionString("serviceBus", "key") }
+        StorageConnectionString = myStorageConnectionString
+        ServiceBusConnectionString = myServiceBusConnectionString }
+
 let cluster = Runtime.GetHandle(config)
 
 // We can connect to the cluster and get details of the workers in the pool etc.
