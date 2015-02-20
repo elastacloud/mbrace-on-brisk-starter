@@ -54,7 +54,7 @@ let getPrimes nmax =
     result |> Seq.toArray
 
 //---------------------------------------------------------------------------
-// Runn this work in different ways on the local machine and cluster
+// Run this work in different ways on the local machine and cluster
 
 // Calculate a whole bunch of primes on a single thread on your PC.  Performance will depend on the
 // spec of your PC. Note that it is possible that your machine is more efficient than each 
