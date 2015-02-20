@@ -1,4 +1,6 @@
 ﻿#load "helpers.fsx"
+#load "credentials.fsx"
+
 open MBrace
 open MBrace.Azure
 open MBrace.Azure.Client
@@ -7,13 +9,16 @@ open Helpers
 
 (**
  This demo shows how to start performing distributed workloads on MBrace clusters.
+
+ Before running, edit credentials.fsx to enter your connection strings.
  **)
 
 // First connect to the cluster
 let config = 
     { Configuration.Default with
-        StorageConnectionString = createStorageConnectionString("storageAccount", "key")
-        ServiceBusConnectionString = createServiceBusConnectionString("serviceBus", "key") }
+        StorageConnectionString = myStorageConnectionString
+        ServiceBusConnectionString = myServiceBusConnectionString }
+
 let cluster = Runtime.GetHandle(config)
 
 // create two jobs (but don't exeute them)
@@ -41,3 +46,4 @@ let quickResults =
     |> List.map(fun number -> cloud { return sprintf "i'm job %d" number })
     |> Cloud.Parallel
     |> cluster.Run
+

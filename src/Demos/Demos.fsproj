@@ -63,7 +63,8 @@
     </None>
     <None Include="2-distributing-work.fsx" />
     <None Include="3-comparing-threads-and-workers.fsx" />
-    <None Include="4-advanced.fsx" />
+    <None Include="4-parallel-web-download.fsx" />
+    <None Include="5-cloud-streams.fsx" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />
