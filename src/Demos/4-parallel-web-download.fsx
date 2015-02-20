@@ -6,11 +6,12 @@ open MBrace.Azure
 open MBrace.Azure.Client
 open MBrace.Azure.Runtime
 open System
-open Helpers
 
-// Connect to mbrace
-//
-// Before running, edit credentials.fsx to enter your connection strings.
+(**
+ This demo illustrates doing I/O tasks in parallel using the workers in the cluster
+ 
+ Before running, edit credentials.fsx to enter your connection strings.
+**)
 
 // First connect to the cluster
 let config = 

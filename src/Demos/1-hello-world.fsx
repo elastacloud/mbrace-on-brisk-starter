@@ -3,7 +3,6 @@
 open MBrace
 open MBrace.Azure.Client
 open MBrace.Azure.Runtime
-open Helpers
 
 (**
  This demo shows how to send a simple computation to an mbrace cluster
