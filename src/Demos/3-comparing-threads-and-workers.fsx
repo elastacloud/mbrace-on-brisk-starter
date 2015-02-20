@@ -1,4 +1,6 @@
 ﻿#load "helpers.fsx"
+
+open System
 open MBrace
 open MBrace.Azure
 open MBrace.Azure.Client
