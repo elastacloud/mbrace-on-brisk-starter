@@ -76,8 +76,3 @@ cluster.ShowProcesses()
 
 invertRandomMatrices.Result
 
-cluster.GetProcess("f75ff09396994ccf971c776a3004c3ee").Kill()
-
-
-
-
