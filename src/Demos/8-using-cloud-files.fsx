@@ -80,10 +80,7 @@ let sumOfLengthsOfLinesProcess =
 
 
 // Check progress
-cluster.ShowProcesses()
-
-// Check progress
-sumOfLengthsOfLinesProcess.Completed
+sumOfLengthsOfLinesProcess.ShowInfo()
 
 // Get the result
 let sumOfLengthsOfLines = sumOfLengthsOfLinesProcess.AwaitResult()
