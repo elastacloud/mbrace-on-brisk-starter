@@ -1,5 +1,4 @@
 ﻿#load "credentials.fsx"
-#load "helpers.fsx"
 #load "collections.fsx"
 #load "sieve.fsx"
 open System
@@ -17,11 +16,6 @@ open MBrace.Azure.Runtime
 
 
 // First connect to the cluster
-let config = 
-    { Configuration.Default with
-        StorageConnectionString = myStorageConnectionString
-        ServiceBusConnectionString = myServiceBusConnectionString }
-
 let cluster = Runtime.GetHandle(config)
 
 //---------------------------------------------------------------------------

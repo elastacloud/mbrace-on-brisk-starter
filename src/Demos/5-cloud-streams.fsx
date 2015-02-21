@@ -1,5 +1,4 @@
-﻿#load "helpers.fsx"
-#load "credentials.fsx"
+﻿#load "credentials.fsx"
 #load "sieve.fsx"
 
 open MBrace
@@ -16,13 +15,7 @@ open System
 **)
 
 // First connect to the cluster
-let config = 
-    { Configuration.Default with
-        StorageConnectionString = myStorageConnectionString
-        ServiceBusConnectionString = myServiceBusConnectionString }
-
 let cluster = Runtime.GetHandle(config)
-
 
 // streaming with LINQ-style distributed operations
 open Nessos.Streams
@@ -60,13 +53,11 @@ let result2 =
     |> CloudStream.map Sieve.getPrimes
     |> CloudStream.map (fun primes -> sprintf "calculated %d primes: %A" primes.Length primes)
     |> CloudStream.toArray
-    |> cluster.RunAsTask
-
-cluster.ShowProcesses()
+    |> cluster.CreateProcess // alteratively you can block on the result using cluster.Run
 
 // Check if the work is done
-result.IsCompleted
+result2
 
 // Look at the result
-result.Result
+result2.AwaitResult()
 
