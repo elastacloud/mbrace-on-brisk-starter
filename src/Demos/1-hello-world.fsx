@@ -1,5 +1,4 @@
-﻿#load "helpers.fsx"
-#load "credentials.fsx"
+﻿#load "credentials.fsx"
 open MBrace
 open MBrace.Azure.Client
 open MBrace.Azure.Runtime
@@ -20,12 +19,6 @@ open MBrace.Azure.Runtime
 // First connect to the cluster using a configuration to bind to your storage and service bus on Azure.
 //
 // Before running, edit credentials.fsx to enter your connection strings.
-
-let config = 
-    { Configuration.Default with
-        StorageConnectionString = myStorageConnectionString
-        ServiceBusConnectionString = myServiceBusConnectionString }
-
 let cluster = Runtime.GetHandle(config)
 
 // We can connect to the cluster and get details of the workers in the pool etc.

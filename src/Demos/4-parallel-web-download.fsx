@@ -1,5 +1,4 @@
-﻿#load "helpers.fsx"
-#load "credentials.fsx"
+﻿#load "credentials.fsx"
 
 open MBrace
 open MBrace.Azure
@@ -14,14 +13,7 @@ open System
 **)
 
 // First connect to the cluster
-let config = 
-    { Configuration.Default with
-        StorageConnectionString = myStorageConnectionString
-        ServiceBusConnectionString = myServiceBusConnectionString }
-
 let cluster = Runtime.GetHandle(config)
-
-
 
 // Cloud parallel url-downloader
 open System.IO

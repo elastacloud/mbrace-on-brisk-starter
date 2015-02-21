@@ -1,5 +1,4 @@
-﻿#load "helpers.fsx"
-#load "credentials.fsx"
+﻿#load "credentials.fsx"
 
 open MBrace
 open MBrace.Azure
@@ -13,11 +12,6 @@ open MBrace.Azure.Runtime
  **)
 
 // First connect to the cluster
-let config = 
-    { Configuration.Default with
-        StorageConnectionString = myStorageConnectionString
-        ServiceBusConnectionString = myServiceBusConnectionString }
-
 let cluster = Runtime.GetHandle(config)
 
 // create two jobs (but don't exeute them)
