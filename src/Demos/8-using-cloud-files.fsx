@@ -8,7 +8,7 @@ open MBrace.Streams
 open System
 
 (**
- This tutorial illustrates creating and using cloud files.
+ This tutorial illustrates creating and using cloud files, and then processing them using cloud streams.
  
  Before running, edit credentials.fsx to enter your connection strings.
 **)
@@ -36,14 +36,53 @@ let directories = cluster.StoreClient.CloudFile.EnumerateDirectories() |> Async.
 let dp = cluster.StoreClient.CloudFile.CreateUniqueDirectoryPath() |> Async.RunSynchronously
 cluster.StoreClient.CloudFile.CreateDirectory(dp) |> Async.RunSynchronously
 
-// Upload the data to a cloud file (held in blob storage) where we give the cloud file a name.
+// Upload data to a cloud file (held in blob storage) where we give the cloud file a name.
 let namedCloudFile = 
     let lines = [for i in 0 .. 1000 -> "Item " + string i + ", " + string (i * 100) ] 
     CloudFile.WriteLines(lines,path=dp + "/file1") |> cluster.Run
 
+// Access the cloud file as part of a cloud job
 let numberOfLinesInNamedFile = 
-    cloud { let! data = namedCloudFile.Read CloudFile.ReadAllLines |> Cloud.OfAsync
+    cloud { let! data = CloudFile.Read(namedCloudFile, CloudFile.ReadAllLines) 
             return data.Length }
     |> cluster.Run
+
+
+(** 
+
+Now we generate a collection of cloud files and process them using cloud streams.
+
+**)
+
+// Generate 100 cloud files in the cloud storage
+let namedCloudFilesProcess = 
+    [ for i in 1 .. 100 do 
+        // Note that we generate the contents of the files in the cloud - this cloud
+        // computation below only captures and sends an integer.
+        yield cloud { let lines = [for j in 1 .. 100 -> "File " + string i + ", Item " + string (i * 100 + j) + ", " + string (j + i * 100) ] 
+                      let! cloudFile =  CloudFile.WriteLines(lines,path=dp + "/file" + string i) 
+                      return cloudFile } ]
+   |> Cloud.Parallel 
+   |> cluster.CreateProcess
+
+// Check progress
+namedCloudFilesProcess.ShowInfo()
+
+// Get the result
+let namedCloudFiles = namedCloudFilesProcess.AwaitResult()
+
+let sumOfLengthsOfLinesProcess = 
+    namedCloudFiles
+    |> CloudStream.ofCloudFiles CloudFile.ReadAllLines
+    |> CloudStream.map (fun lines -> lines |> Array.sumBy (fun line -> line.Length))
+    |> CloudStream.toArray
+    |> cluster.CreateProcess // alteratively you can block on the result using cluster.Run
+
+
+// Check progress
+sumOfLengthsOfLinesProcess.ShowInfo()
+
+// Get the result
+let sumOfLengthsOfLines = sumOfLengthsOfLinesProcess.AwaitResult()
 
 

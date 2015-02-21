@@ -19,12 +19,12 @@ let cluster = Runtime.GetHandle(config)
 // Here's some data
 let smallData = "Some data" 
 
-// Upload the data to blob storage
-let handleToSmallDataInBlob = smallData |> CloudRef.New |> cluster.Run
+// Upload the data to blob storage and return a handle to the stored data
+let cloudRefToSmallDataInBlob = smallData |> CloudRef.New |> cluster.Run
 
 // Run a cloud job which reads the blob and processes the data
 let lengthOfData = 
-    cloud { let! data = CloudRef.Read handleToSmallDataInBlob 
+    cloud { let! data = CloudRef.Read cloudRefToSmallDataInBlob 
             return data.Length }
     |> cluster.Run
 
@@ -34,47 +34,47 @@ let lengthOfData =
  
 **)
 
-// Here is the data we're going to upload
+// Here is the data we're going to upload, it's an array of arrays
 let arrayOfData = [| for i in 0 .. 10 -> [| for j in 0 .. 1000 -> (i,j) |] |] 
 
 // Upload it as a CloudArray
 let arrayOfDataInCloud = arrayOfData |> CloudArray.New |> cluster.Run
 
 // Now process the cloud array
-let countTask = 
+let lengthsOfCloudArrayProcess = 
     arrayOfDataInCloud
     |> CloudStream.ofCloudArray
     |> CloudStream.map (fun n -> n.Length)
     |> CloudStream.toArray
-    |> cluster.RunAsTask
+    |> cluster.CreateProcess
 
 // Check progress
-cluster.ShowProcesses()
+lengthsOfCloudArrayProcess.ShowInfo()
 
 // Check progress
-countTask.IsCompleted
+lengthsOfCloudArrayProcess.Completed
 
 // Acccess the result
-countTask.Result
+let lengthsOfCloudArray =  lengthsOfCloudArrayProcess.AwaitResult()
 
 // Now process the cloud array again, using CloudStream.
 // We process each element of the cloud array (each of which is itself an array).
 // We then sort the results and take the top 10 elements
-let sumAndSortTask = 
+let sumAndSortProcess = 
     arrayOfDataInCloud
     |> CloudStream.ofCloudArray
     |> CloudStream.map (Array.sumBy (fun (i,j) -> i+j))
     |> CloudStream.sortBy (fun n -> n) 10
     |> CloudStream.toArray
-    |> cluster.RunAsTask
+    |> cluster.CreateProcess
 
 // Check progress
-cluster.ShowProcesses()
+sumAndSortProcess.ShowInfo()
 
 // Check progress
-sumAndSortTask.IsCompleted
+sumAndSortProcess.Completed
 
 // Acccess the result
-sumAndSortTask.Result
+let sumAndSort = sumAndSortProcess.AwaitResult()
 
 
