@@ -114,13 +114,13 @@ Assumes you have an Azure account with at least 6 cores spare (there is a 20 cor
     ```
 
 13. Check result:
-   ```fsharp
-   work0.IsCompleted
-   ```
+  ```fsharp
+  work0.IsCompleted
+  ```
   giving
-    ```fsharp
-    true
-    ```
+  ```fsharp
+  true
+  ```
    and
     ```fsharp
     work0.AwaitResultAsync() |> Async.RunSynchronously
