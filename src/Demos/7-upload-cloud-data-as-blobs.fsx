@@ -41,7 +41,7 @@ let arrayOfData = [| for i in 0 .. 10 -> [| for j in 0 .. 1000 -> (i,j) |] |]
 let arrayOfDataInCloud = arrayOfData |> CloudArray.New |> cluster.Run
 
 // Now process the cloud array
-let lengthsOfCloudArrayProcess = 
+let lengthsJob = 
     arrayOfDataInCloud
     |> CloudStream.ofCloudArray
     |> CloudStream.map (fun n -> n.Length)
@@ -49,18 +49,18 @@ let lengthsOfCloudArrayProcess =
     |> cluster.CreateProcess
 
 // Check progress
-lengthsOfCloudArrayProcess.ShowInfo()
+lengthsJob.ShowInfo()
 
 // Check progress
-lengthsOfCloudArrayProcess.Completed
+lengthsJob.Completed
 
 // Acccess the result
-let lengthsOfCloudArray =  lengthsOfCloudArrayProcess.AwaitResult()
+let lengths =  lengthsJob.AwaitResult()
 
 // Now process the cloud array again, using CloudStream.
 // We process each element of the cloud array (each of which is itself an array).
 // We then sort the results and take the top 10 elements
-let sumAndSortProcess = 
+let sumAndSortJob = 
     arrayOfDataInCloud
     |> CloudStream.ofCloudArray
     |> CloudStream.map (Array.sumBy (fun (i,j) -> i+j))
@@ -69,12 +69,12 @@ let sumAndSortProcess =
     |> cluster.CreateProcess
 
 // Check progress
-sumAndSortProcess.ShowInfo()
+sumAndSortJob.ShowInfo()
 
 // Check progress
-sumAndSortProcess.Completed
+sumAndSortJob.Completed
 
 // Acccess the result
-let sumAndSort = sumAndSortProcess.AwaitResult()
+let sumAndSort = sumAndSortJob.AwaitResult()
 
 

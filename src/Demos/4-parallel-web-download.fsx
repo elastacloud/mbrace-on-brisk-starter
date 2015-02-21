@@ -30,6 +30,7 @@ let write (text: string) (stream: Stream) = async {
 }
 
 
+/// Cloud workflow to download a file and wave it into cloud storage
 let download (name: string, uri: string) = cloud {
     let webClient = new WebClient()
     let! text = Cloud.OfAsync <| webClient.AsyncDownloadString(Uri(uri))
@@ -37,18 +38,26 @@ let download (name: string, uri: string) = cloud {
     return file
 }
 
-let files = 
+let filesJob = 
     urls 
     |> Array.map download
     |> Cloud.Parallel
-    |> cluster.Run
+    |> cluster.CreateProcess
+
+// Check on progress...
+filesJob.ShowInfo()
+
+// Get the result of the job
+let files = filesJob.AwaitResult()
 
 
+/// Cloud workflow to read a cloud file as text and extract its length
 let read (file: MBrace.CloudFile) = cloud {
     let! text = CloudFile.Read(file, CloudFile.ReadAllText)
     return (file.FileName, text.Length)
 }
 
+// The same thing, just in one go
 let proc' = 
     files
     |> Array.map read
