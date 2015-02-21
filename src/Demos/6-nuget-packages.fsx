@@ -1,5 +1,4 @@
-﻿#load "helpers.fsx"
-#load "credentials.fsx"
+﻿#load "credentials.fsx"
 
 open MBrace
 open MBrace.Azure
@@ -57,11 +56,6 @@ v1 * m1
 // automatically.
 
 // First connect to the cluster
-let config = 
-    { Configuration.Default with
-        StorageConnectionString = myStorageConnectionString
-        ServiceBusConnectionString = myServiceBusConnectionString }
-
 let cluster = Runtime.GetHandle(config)
 
 let invertRandomMatrices = 
