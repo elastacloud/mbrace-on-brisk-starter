@@ -59,6 +59,7 @@
     <Compile Include="helpers.fsx" />
     <None Include="credentials.fsx" />
     <None Include="collections.fsx" />
+    <None Include="sieve.fsx" />
     <None Include="1-hello-world.fsx">
       <SubType>
       </SubType>
