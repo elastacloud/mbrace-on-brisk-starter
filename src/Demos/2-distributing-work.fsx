@@ -15,23 +15,26 @@ open MBrace.Azure.Runtime
 let cluster = Runtime.GetHandle(config)
 
 // create two jobs (but don't exeute them)
-let jobA = cloud { return "hello world from A" }
-let jobB = cloud { return 50 }
+let workflowA = cloud { return "hello world from A" }
+let workflowB = cloud { return 50 }
 
 // Compose both jobs into one
-let combinedJob = jobA <||> jobB
+let combinedWorkflow = workflowA <||> workflowB
 
 // Submit both jobs and get the answer of both as a tuple of (string * int)
-let a, b = combinedJob |> cluster.Run
+let a, b = combinedWorkflow |> cluster.Run
 
 // Now we can make many jobs
-let lotsOfJobs = [ 1 .. 50 ] |> List.map(fun number -> cloud { return sprintf "i'm job %d" number })
+let lotsOfWorkflows = [ 1 .. 50 ] |> List.map(fun number -> cloud { return sprintf "i'm job %d" number })
 
 // compose them all in parallel - this is analogous to Async.Parallel
-let jobOfLotsOfWork = lotsOfJobs |> Cloud.Parallel
+let lotsOfWorkAsOneWorkflow = lotsOfWorkflows |> Cloud.Parallel
+
+// Start the work as a cloud process
+let resultsJob = lotsOfWorkAsOneWorkflow |> cluster.CreateProcess
 
 // Get the results
-let results = jobOfLotsOfWork |> cluster.Run
+let results = resultsJob.AwaitResult()
 
 // Again, in shorthand
 let quickResults =

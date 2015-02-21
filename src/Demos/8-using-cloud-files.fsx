@@ -55,7 +55,7 @@ Now we generate a collection of cloud files and process them using cloud streams
 **)
 
 // Generate 100 cloud files in the cloud storage
-let namedCloudFilesProcess = 
+let namedCloudFilesJob = 
     [ for i in 1 .. 100 do 
         // Note that we generate the contents of the files in the cloud - this cloud
         // computation below only captures and sends an integer.
@@ -66,12 +66,12 @@ let namedCloudFilesProcess =
    |> cluster.CreateProcess
 
 // Check progress
-namedCloudFilesProcess.ShowInfo()
+namedCloudFilesJob.ShowInfo()
 
 // Get the result
-let namedCloudFiles = namedCloudFilesProcess.AwaitResult()
+let namedCloudFiles = namedCloudFilesJob.AwaitResult()
 
-let sumOfLengthsOfLinesProcess = 
+let sumOfLengthsOfLinesJob = 
     namedCloudFiles
     |> CloudStream.ofCloudFiles CloudFile.ReadAllLines
     |> CloudStream.map (fun lines -> lines |> Array.sumBy (fun line -> line.Length))
@@ -80,9 +80,9 @@ let sumOfLengthsOfLinesProcess =
 
 
 // Check progress
-sumOfLengthsOfLinesProcess.ShowInfo()
+sumOfLengthsOfLinesJob.ShowInfo()
 
 // Get the result
-let sumOfLengthsOfLines = sumOfLengthsOfLinesProcess.AwaitResult()
+let sumOfLengthsOfLines = sumOfLengthsOfLinesJob.AwaitResult()
 
 
