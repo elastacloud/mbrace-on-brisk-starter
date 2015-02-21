@@ -21,7 +21,7 @@ let cluster = Runtime.GetHandle(config)
 open Nessos.Streams
 open MBrace.Streams
 
-let result = 
+let streamTask = 
     [| 1..100 |]
     |> CloudStream.ofArray
     |> CloudStream.map (fun num -> num * num)
@@ -34,10 +34,10 @@ let result =
 cluster.ShowProcesses()
 
 // Check if the work is done
-result.IsCompleted
+streamTask.IsCompleted
 
 // Look at the result
-result.Result
+streamTask.Result
 
 (** 
 
@@ -47,17 +47,20 @@ result.Result
 
 let numbers = [| for i in 1 .. 30 -> 50000000 |]
 
-let result2 = 
+let streamComputeTask = 
     numbers
     |> CloudStream.ofArray
     |> CloudStream.map Sieve.getPrimes
     |> CloudStream.map (fun primes -> sprintf "calculated %d primes: %A" primes.Length primes)
     |> CloudStream.toArray
-    |> cluster.CreateProcess // alteratively you can block on the result using cluster.Run
+    |> cluster.RunAsTask // alteratively you can block on the result using cluster.Run
 
 // Check if the work is done
-result2
+streamComputeTask.IsCompleted
 
-// Look at the result
-result2.AwaitResult()
+// Look at it running
+cluster.ShowProcesses()
+
+// Wait for the result
+streamComputeTask.Result
 
