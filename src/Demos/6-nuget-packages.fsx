@@ -58,15 +58,17 @@ v1 * m1
 // First connect to the cluster
 let cluster = Runtime.GetHandle(config)
 
-let invertRandomMatrices = 
+let invertRandomMatricesProcess = 
     [ for m in 1 .. 20 -> 
         cloud { 
           let m = Matrix<double>.Build.Random(200,200) 
           return (m * m.Inverse()).L1Norm() } ]
     |> Cloud.Parallel
-    |> cluster.RunAsTask
+    |> cluster.CreateProcess
 
-cluster.ShowProcesses()
+// Show the progress
+invertRandomMatricesProcess.ShowInfo()
 
-invertRandomMatrices.Result
+// Await the result
+let invertRandomMatrices = invertRandomMatricesProcess.AwaitResult()
 

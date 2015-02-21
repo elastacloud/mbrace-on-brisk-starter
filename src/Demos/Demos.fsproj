@@ -69,7 +69,7 @@
     <None Include="5-cloud-streams.fsx" />
     <None Include="6-nuget-packages.fsx" />
     <None Include="7-upload-cloud-data-as-blobs.fsx" />
-    <None Include="8-cloud-files.fsx" />
+    <None Include="8-using-cloud-files.fsx" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />
