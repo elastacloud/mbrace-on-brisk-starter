@@ -1,6 +1,6 @@
 ﻿#load "credentials.fsx"
-#load "collections.fsx"
-#load "primality.fsx"
+#load "lib/collections.fsx"
+#load "lib/mersenne.fsx"
 
 open MBrace
 open MBrace.Azure

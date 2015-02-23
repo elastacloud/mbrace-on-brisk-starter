@@ -1,5 +1,5 @@
 ﻿#load "credentials.fsx"
-#load "sieve.fsx"
+#load "lib/sieve.fsx"
 
 open MBrace
 open MBrace.Azure
