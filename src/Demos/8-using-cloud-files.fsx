@@ -5,7 +5,7 @@ open MBrace.Azure
 open MBrace.Azure.Client
 open MBrace.Azure.Runtime
 open MBrace.Streams
-open System
+//open System
 
 (**
  This tutorial illustrates creating and using cloud files, and then processing them using cloud streams.
@@ -84,5 +84,4 @@ sumOfLengthsOfLinesJob.ShowInfo()
 
 // Get the result
 let sumOfLengthsOfLines = sumOfLengthsOfLinesJob.AwaitResult()
-
 
