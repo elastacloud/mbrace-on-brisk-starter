@@ -67,7 +67,9 @@
     <None Include="6-nuget-packages.fsx" />
     <None Include="7-upload-cloud-data-as-blobs.fsx" />
     <None Include="8-using-cloud-files.fsx" />
-    <None Include="9-nondeterministic-parallelism.fsx" />
+    <None Include="9-using-cloud-channels.fsx" />
+    <None Include="10-using-cloud-atoms.fsx" />
+    <None Include="11-distributed-multicore-parallel-search.fsx" />
     <None Include="credentials.fsx" />
     <None Include="lib\collections.fsx" />
     <None Include="lib\sieve.fsx" />
