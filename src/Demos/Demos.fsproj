@@ -56,11 +56,6 @@
   </Choose>
   <Import Project="$(FSharpTargetsPath)" />
   <ItemGroup>
-    <Compile Include="helpers.fsx" />
-    <None Include="credentials.fsx" />
-    <None Include="collections.fsx" />
-    <None Include="sieve.fsx" />
-    <None Include="primality.fsx" />
     <None Include="1-hello-world.fsx">
       <SubType>
       </SubType>
@@ -73,6 +68,10 @@
     <None Include="7-upload-cloud-data-as-blobs.fsx" />
     <None Include="8-using-cloud-files.fsx" />
     <None Include="9-nondeterministic-parallelism.fsx" />
+    <None Include="credentials.fsx" />
+    <None Include="lib\collections.fsx" />
+    <None Include="lib\sieve.fsx" />
+    <None Include="lib\mersenne.fsx" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />
