@@ -70,6 +70,7 @@
     <None Include="9-using-cloud-channels.fsx" />
     <None Include="10-using-cloud-atoms.fsx" />
     <None Include="11-distributed-multicore-parallel-search.fsx" />
+    <None Include="12-norvig%27s-spelling-corrector.fsx" />
     <None Include="credentials.fsx" />
     <None Include="lib\collections.fsx" />
     <None Include="lib\sieve.fsx" />
