@@ -23,14 +23,15 @@ let cluster = Runtime.GetHandle(config)
 
 
 
-// helper
+/// helper : write all text to provided stream
 let write (text: string) (stream: Stream) = async { 
     use writer = new StreamWriter(stream)
     writer.Write(text)
     return () 
 }
 
-
+/// Step 1: download text file from source, 
+/// saving it to blob storage chunked into smaller files of 10000 lines each
 let download (uri: string) = cloud {
     let webClient = new WebClient()
     do! Cloud.Log "Begin file download" 
@@ -52,9 +53,9 @@ cluster.ShowProcesses()
 
 let files = proc.AwaitResult()
 
-let regex = Regex "[a-zA-Z]+"
-
-// Word Count step
+// Step 2. Use MBrace.Streams to perform a parallel word 
+// frequency count on the stored text
+let regex = Regex("[a-zA-Z]+", RegexOptions.Compiled)
 let proc' = 
     files
     |> CloudStream.ofCloudFiles CloudFile.ReadAllText
@@ -66,6 +67,8 @@ let proc' =
 
 cluster.ShowProcesses()
 
+// Step 3. Use calculated frequency counts to compute
+// suggested spelling corrections in the local process
 let NWORDS = proc'.AwaitResult() |> Map.ofArray
 
 let edits1 (word: string) = 
