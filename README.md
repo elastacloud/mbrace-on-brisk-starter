@@ -5,7 +5,7 @@ Contains a set of scripts and demos to get you up and running with MBrace on Bri
 
 Steps I used to create an [MBrace](http://www.m-brace.net/) Cluster on [Azure](https://windowsazure.com) using [Elastacloud Brisk Engine](https://www.briskengine.com/#/dash) as of 20/02/2015. See [the announcement of the pre-release availability](http://blog.brisk.elastatools.com/2015/02/19/adding-support-for-mbrace-f-and-net-on-brisk/) of this service.
 
-Assumes you have an Azure account with at least 6 cores spare (there is a 20 core limit on some free or trial Azure accounts).
+Assumes you have an Azure account with at least 4 cores spare (there is a 20 core limit on some free or trial Azure accounts).
 
 1.	Created an account with [Brisk](https://www.briskengine.com/), including entering my Azure account connection token details. 
 
@@ -30,9 +30,7 @@ Assumes you have an Azure account with at least 6 cores spare (there is a 20 cor
   ![pic4c](https://cloud.githubusercontent.com/assets/7204669/6285357/b55bcf4c-b8f2-11e4-905c-b782ae7b9c6a.png)
 
 
-6.	Creating the cluster will have created a "Cloud Service" in your Azure account.  Go back to the Azure console and get the connection strings from the portal for the created Cloud Service under "configure" tab.  The Brisk guys are working on automating this step.
-
-  ![pic5](https://cloud.githubusercontent.com/assets/7204669/6285362/c6b7d04c-b8f2-11e4-8527-25b37e466e81.png)
+6.	You can fetch the connection string details directly from within Brisk by viewing the cluster details, Connections tab. These will be needed in the next step.
 
 7. Open Visual Studio, reset F# Interactive, enter the connection strings into the starter script:
 
