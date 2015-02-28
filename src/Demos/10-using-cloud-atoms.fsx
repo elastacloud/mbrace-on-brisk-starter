@@ -17,7 +17,7 @@ open MBrace.Streams
 let cluster = Runtime.GetHandle(config)
 
 
-// Create an anoymous cloud atom with an initial value
+/// Create an anoymous cloud atom with an initial value
 let atom = CloudAtom.New(100) |> cluster.Run
 
 // Check the unique ID of the atom

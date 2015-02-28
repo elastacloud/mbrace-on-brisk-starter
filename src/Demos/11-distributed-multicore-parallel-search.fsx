@@ -10,54 +10,72 @@ open MBrace.Streams
 open System
 
 (**
- This tutorial illustrated nondeterministic parallel computation using Mersenne prime number searches
- 
+ In this tutorial you learn how to use Cloud.Choice to do a nondeterministic parallel computation using 
+ Mersenne prime number searches.
+  
  Before running, edit credentials.fsx to enter your connection strings.
 **)
 
 // First connect to the cluster
 let cluster = Runtime.GetHandle(config)
 
-/// Distributed tryFind combinator with multicore balancing
-let rec tryFind (predicate : 'T -> bool) (ts : 'T []) = cloud {
-    let! schedCtx = Cloud.GetSchedulingContext() // returns a union representing the current 
-                                                 // parallelism semantics for executing workflow
+/// Distributed tryFind combinator with multicore balancing.
+///
+/// Searches the given array non-deterministically using divide-and-conquer,
+/// first dividing according to the number of available workers, and then
+/// according to the number of available cores, and then performing sequential
+/// search on each machine.
+let rec distributedMultiCoreTryFind (predicate : 'T -> bool) (ts : 'T []) = 
+  cloud {
+
+    // GetSchedulingContext returns a union representing the current 
+    // parallelism semantics for executing workflow.
+    let! schedCtx = Cloud.GetSchedulingContext()
+
+    // Depending on the scheduling context we divide-and-conquer in different ways
     match schedCtx with
     | _ when ts.Length <= 1 -> return Array.tryFind predicate ts
-    | Sequential -> return Array.tryFind predicate ts
+    | Sequential -> 
+        // Perform a sequential search
+        return Array.tryFind predicate ts
+
     | ThreadParallel ->
-        // divide inputs by processor count and evaluate with sequential semantics
-        let tss = Array.divideBy System.Environment.ProcessorCount ts
+        // Divide inputs by processor count and evaluate with sequential semantics
+        let tss = Array.splitInto System.Environment.ProcessorCount ts
         return!
             tss
-            |> Array.map (tryFind predicate >> Cloud.ToSequential)
+            |> Array.map (distributedMultiCoreTryFind predicate >> Cloud.ToSequential)
             |> Cloud.Choice
 
     | Distributed ->
-        // divide inputs by cluster size and evaluate with local parallelism semantics
+        // Divide inputs by cluster size and evaluate with local parallelism semantics
         let! clusterSize = Cloud.GetWorkerCount()
-        let tss = Array.divideBy clusterSize ts
+        let tss = Array.splitInto clusterSize ts
         return!
             tss
-            |> Array.map (tryFind predicate >> Cloud.ToLocal)
+            |> Array.map (distributedMultiCoreTryFind predicate >> Cloud.ToLocal)
             |> Cloud.Choice
 }
 
 #time
 
-// known Mersenne exponents : 9,689 and 9,941
+/// Known Mersenne exponents : 9,689 and 9,941
 let exponentRange = [| 9000 .. 10000 |]
 
-/// sequential Mersenne prime search
-let tryFindMersenneSeq ts = Array.tryFind Primality.isMersennePrime ts
+/// Sequential Mersenne prime search
+let tryFindMersenneLocal ts = Array.tryFind Primality.isMersennePrime ts
 
-// Real: 00:05:46.615, CPU: 00:05:48.484, GC gen0: 3192, gen1: 39, gen2: 4
-tryFindMersenneSeq exponentRange
+// Execution time = 00:05:46.615, sample local machine
+tryFindMersenneLocal exponentRange
 
-/// MBrace nondeterministic Mersenne prime search
-let tryFindMersenneCloud ts = tryFind Primality.isMersennePrime ts
+/// MBrace distributed, multi-core, nondeterministic Mersenne prime search
+let tryFindMersenneCloud ts = distributedMultiCoreTryFind Primality.isMersennePrime ts
 
 // ExecutionTime = 00:00:38.2472020, 3 small instance cluster
-let proc = cluster.CreateProcess(tryFindMersenneCloud exponentRange, name = "LucasLehmerTest")
-proc.AwaitResult()
-proc.ShowInfo()
+let searchJob = tryFindMersenneCloud exponentRange |> cluster.CreateProcess
+
+searchJob.ShowInfo()
+
+searchJob.AwaitResult()
+
+

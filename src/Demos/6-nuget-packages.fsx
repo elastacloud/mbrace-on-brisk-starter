@@ -58,6 +58,8 @@ v1 * m1
 // First connect to the cluster
 let cluster = Runtime.GetHandle(config)
 
+cluster.ShowProcesses()
+
 let invertRandomMatricesJob = 
     [ for m in 1 .. 20 -> 
         cloud { 
