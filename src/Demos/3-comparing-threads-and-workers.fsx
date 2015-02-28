@@ -94,7 +94,7 @@ let clusterSingleWorkerMultiThreaded =
     cloud { 
      return 
        numbers
-       |> Array.divideBy System.Environment.ProcessorCount
+       |> Array.splitInto System.Environment.ProcessorCount
        |> Array.Parallel.collect(fun nums -> 
          [| for n in nums do 
              let primes = Sieve.getPrimes n 
@@ -116,12 +116,12 @@ let clusterWorkerCount = cluster.GetWorkers() |> Seq.length
 // Sample time: Real: 00:00:11.475, CPU: 00:00:01.921, GC gen0: 22, gen1: 12, gen2: 0
 let clusterMultiWorkerMultiThreaded =
     numbers
-    |> Array.divideBy clusterWorkerCount
+    |> Array.splitInto clusterWorkerCount
     |> Array.map(fun nums -> 
          cloud { 
            return
                nums
-               |> Array.divideBy System.Environment.ProcessorCount
+               |> Array.splitInto System.Environment.ProcessorCount
                |> Array.Parallel.collect(fun nums -> 
                  [| for n in nums do 
                      let primes = Sieve.getPrimes n 

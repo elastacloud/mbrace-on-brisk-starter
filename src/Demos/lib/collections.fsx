@@ -1,7 +1,7 @@
 ﻿namespace global
 
 module Array = 
-    let chunkBy (n:int) (numbers: 'T[])  =
+    let chunkBySize (n:int) (numbers: 'T[])  =
         if n <= 0 then invalidArg "n" "must be positive."
 
         [| for i in 1 .. numbers.Length / n  do 
@@ -11,13 +11,13 @@ module Array =
             yield [| for j in (numbers.Length / n) * n .. numbers.Length - 1 do 
                        yield numbers.[j] |] |] 
 
-    let divideBy (n:int) (numbers: 'T[])  = 
+    let splitInto (n:int) (numbers: 'T[])  = 
         if n <= 0 then invalidArg "n" "must be positive."
         if numbers.Length < n then 
             numbers |> Array.map (fun t -> [| t |]) 
         else
-            chunkBy (numbers.Length / n) numbers
+            chunkBySize (numbers.Length / n) numbers
 
 module List = 
-    let chunkBy (n:int) (numbers: 'T list)  =  numbers |> List.toArray |> Array.chunkBy n |> Array.toList |> List.map Array.toList
-    let divideBy (n:int) (numbers: 'T list)  =  numbers |> List.toArray |> Array.divideBy n |> Array.toList |> List.map Array.toList
+    let chunkBySize (n:int) (numbers: 'T list)  =  numbers |> List.toArray |> Array.chunkBySize n |> Array.toList |> List.map Array.toList
+    let splitInto (n:int) (numbers: 'T list)  =  numbers |> List.toArray |> Array.splitInto n |> Array.toList |> List.map Array.toList
