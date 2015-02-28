@@ -5,6 +5,7 @@ open MBrace.Azure
 open MBrace.Azure.Client
 open MBrace.Azure.Runtime
 open MBrace.Streams
+open MBrace.Workflows
 
 (**
  This tutorial illustrates creating and using cloud channels, which allow you to send messages between
@@ -20,13 +21,13 @@ let cluster = Runtime.GetHandle(config)
 let send1,recv1 = CloudChannel.New<string>() |> cluster.Run
 
 // Send to the channel by scheduling a cloud process to do the send 
-CloudChannel.Send "hello" send1 |> cluster.Run
+CloudChannel.Send (send1, "hello") |> cluster.Run
 
 // Receive from the channel by scheduling a cloud process to do the receive 
 let msg = CloudChannel.Receive(recv1) |> cluster.Run
 
 cloud { for i in 0 .. 99 do 
-           do! CloudChannel.Send (sprintf "hello%d" i) send1  }
+            do! send1 <-- sprintf "hello%d" i }
  |> cluster.Run
 
 

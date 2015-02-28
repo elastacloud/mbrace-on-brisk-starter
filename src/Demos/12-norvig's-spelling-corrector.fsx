@@ -10,6 +10,7 @@ open MBrace.Azure
 open MBrace.Azure.Client
 open MBrace.Azure.Runtime
 open MBrace.Streams
+open MBrace.Workflows
 open Nessos.Streams
 
 (**
@@ -40,7 +41,7 @@ let download (uri: string) = cloud {
     let! files = 
         text.Split('\n')
         |> Array.chunkBySize 10000
-        |> Array.mapi (fun index strings -> CloudFile.New(write (String.Concat(strings)), sprintf "text/%d.txt" index))
+        |> Array.mapi (fun index lines -> CloudFile.WriteAllLines(lines, path = sprintf "text/%d.txt" index))
         |> Cloud.Parallel
         |> Cloud.ToLocal
     return files
@@ -53,9 +54,8 @@ downloadJob.ShowInfo()
 let files = downloadJob.AwaitResult()
 
 let fileSizesJob = 
-    cloud { let jobs = [ for f in files -> f.GetSizeAsync() |> Cloud.OfAsync ] 
-            let! res = Cloud.Parallel jobs
-            return res }
+    files
+    |> Distributed.map CloudFile.GetSize
     |> cluster.CreateProcess 
 
 fileSizesJob.Completed
@@ -68,7 +68,7 @@ let fileSizes = fileSizesJob.AwaitResult()
 let regex = Regex("[a-zA-Z]+", RegexOptions.Compiled)
 let wordCountJob = 
     files
-    |> CloudStream.ofCloudFiles CloudFile.ReadAllText
+    |> CloudStream.ofCloudFiles (fun s -> async { let sr = new StreamReader(s) in return sr.ReadToEnd() })
     |> CloudStream.collect (fun text -> regex.Matches(text) |> Seq.cast |> Stream.ofSeq)
     |> CloudStream.map (fun (m:Match) -> m.Value.ToLower()) 
     |> CloudStream.countBy id 
