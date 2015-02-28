@@ -4,6 +4,7 @@ open MBrace
 open MBrace.Azure
 open MBrace.Azure.Client
 open MBrace.Azure.Runtime
+open MBrace.Workflows
 
 (**
  This demo shows how to start performing distributed workloads on MBrace clusters.
@@ -14,7 +15,7 @@ open MBrace.Azure.Runtime
 // First connect to the cluster
 let cluster = Runtime.GetHandle(config)
 
-// create two jobs (but don't exeute them)
+// create two jobs (but don't execute them)
 let workflowA = cloud { return "hello world from A" }
 let workflowB = cloud { return 50 }
 
