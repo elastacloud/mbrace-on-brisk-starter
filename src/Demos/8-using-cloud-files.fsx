@@ -16,11 +16,11 @@ open MBrace.Azure.Runtime
 let cluster = Runtime.GetHandle(config)
 
 // Here's some data
-let smallData = "Some data" 
+let linesOfFile = ["Hello World"; "How are you" ] 
 
 // Upload the data to a cloud file (held in blob storage). A fresh name is generated 
 // for the could file.
-let anonCloudFile = ["Hello World"; "How are you" ] |> CloudFile.WriteAllLines |> cluster.Run
+let anonCloudFile = linesOfFile |> CloudFile.WriteAllLines |> cluster.Run
 
 // Run a cloud job which reads all the lines of a cloud file:
 let numberOfLinesInFile = 
@@ -83,4 +83,5 @@ sumOfLengthsOfLinesJob.ShowInfo()
 
 // Get the result
 let sumOfLengthsOfLines = sumOfLengthsOfLinesJob.AwaitResult()
+
 

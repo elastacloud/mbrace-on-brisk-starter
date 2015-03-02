@@ -35,15 +35,19 @@ let lengthOfData =
 **)
 
 // Here is the data we're going to upload, it's an array of arrays
-let arrayOfData = [| for i in 0 .. 10 -> [| for j in 0 .. 1000 -> (i,j) |] |] 
+let arrayOfData = [| for i in 0 .. 10 -> [| for j in 0 .. 2000 -> (i,j) |] |] 
 
-// Upload it as a CloudArray
-let arrayOfDataInCloud = arrayOfData |> CloudArray.New |> cluster.Run
+// Upload it as a partitioned CloudArray
+let arrayOfDataInCloud = CloudVector.New(arrayOfData,10000L) |> cluster.Run
+
+// Check the partition count
+arrayOfDataInCloud.PartitionCount
+
 
 // Now process the cloud array
 let lengthsJob = 
     arrayOfDataInCloud
-    |> CloudStream.ofCloudArray
+    |> CloudStream.ofCloudVector
     |> CloudStream.map (fun n -> n.Length)
     |> CloudStream.toArray
     |> cluster.CreateProcess
@@ -62,7 +66,7 @@ let lengths =  lengthsJob.AwaitResult()
 // We then sort the results and take the top 10 elements
 let sumAndSortJob = 
     arrayOfDataInCloud
-    |> CloudStream.ofCloudArray
+    |> CloudStream.ofCloudVector
     |> CloudStream.map (Array.sumBy (fun (i,j) -> i+j))
     |> CloudStream.sortBy (fun n -> n) 10
     |> CloudStream.toArray

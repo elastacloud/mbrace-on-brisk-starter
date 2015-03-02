@@ -34,7 +34,7 @@ let write (text: string) (stream: Stream) = async {
 let download (name: string, uri: string) = cloud {
     let webClient = new WebClient()
     let! text = Cloud.OfAsync <| webClient.AsyncDownloadString(Uri(uri))
-    let! file = CloudFile.New(write text, sprintf "pages/%s.html" name)
+    let! file = CloudFile.Create(write text, sprintf "pages/%s.html" name)
     return file
 }
 
@@ -53,8 +53,8 @@ let files = filesJob.AwaitResult()
 
 /// Cloud workflow to read a cloud file as text and extract its length
 let read (file: MBrace.CloudFile) = cloud {
-    let! text = CloudFile.Read(file, CloudFile.ReadAllText)
-    return (file.FileName, text.Length)
+    let! text = CloudFile.ReadAllText(file)
+    return (file.Path, text.Length)
 }
 
 // The same thing, just in one go
