@@ -24,6 +24,9 @@ let cluster = Runtime.GetHandle(config)
 // We can connect to the cluster and get details of the workers in the pool etc.
 cluster.ShowWorkers()
 
+// We can view the history of processes
+cluster.ShowProcesses()
+
 // Create a cloud workflow, don't execute it
 let workflow = cloud { return "Hello world!" }
 
@@ -38,3 +41,16 @@ let text = job.AwaitResult()
 
 // Alternatively we can do this all in one line
 let quickText = cloud { return "Hello world!" } |> cluster.Run
+
+// This can be used to clear all process records in the cluster
+//
+// cluster.ClearAllProcesses()
+
+// If you need to get really heavy, you can reset the cluster, which clears 
+// all process state in queues and storage. Other storage is left unchanged.
+// Your worker roles may need to be manually rebooted (e.g. from the Azure 
+// management console).
+//
+// cluster.Reset()
+
+

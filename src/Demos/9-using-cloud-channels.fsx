@@ -26,14 +26,14 @@ CloudChannel.Send (send1, "hello") |> cluster.Run
 // Receive from the channel by scheduling a cloud process to do the receive 
 let msg = CloudChannel.Receive(recv1) |> cluster.Run
 
-cloud { for i in 0 .. 99 do 
+cloud { for i in [ 0 .. 99 ] do 
             do! send1 <-- sprintf "hello%d" i }
  |> cluster.Run
 
 
 // Await for the 100 messages.  
 cloud { let results = ResizeArray()
-        for i in 0 .. 99 do 
+        for i in [ 0 .. 99 ] do 
            let! msg = CloudChannel.Receive(recv1)
            results.Add msg
         return results.ToArray() }

@@ -65,7 +65,7 @@
     <None Include="4-parallel-web-download.fsx" />
     <None Include="5-cloud-streams.fsx" />
     <None Include="6-nuget-packages.fsx" />
-    <None Include="7-upload-cloud-data-as-blobs.fsx" />
+    <None Include="7-using-cloud-data.fsx" />
     <None Include="8-using-cloud-files.fsx" />
     <None Include="9-using-cloud-channels.fsx" />
     <None Include="10-using-cloud-atoms.fsx" />
@@ -75,6 +75,8 @@
     <None Include="lib\collections.fsx" />
     <None Include="lib\sieve.fsx" />
     <None Include="lib\mersenne.fsx" />
+    <None Include="999-cloud-file-perf.fsx" />
+    <None Include="999-process-create-perf.fsx" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />

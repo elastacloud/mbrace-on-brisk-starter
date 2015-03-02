@@ -61,10 +61,11 @@ let cluster = Runtime.GetHandle(config)
 cluster.ShowProcesses()
 
 let invertRandomMatricesJob = 
-    [ for m in 1 .. 20 -> 
+    [ for i in 1 .. 200 -> 
         cloud { 
-          let m = Matrix<double>.Build.Random(200,200) 
-          return (m * m.Inverse()).L1Norm() } ]
+             let m = Matrix<double>.Build.Random(100,100) 
+             let x = (m * m.Inverse()).L1Norm()
+             return x } ]
     |> Cloud.Parallel
     |> cluster.CreateProcess
 
