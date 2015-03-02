@@ -7,21 +7,17 @@ Steps I used to create an [MBrace](http://www.m-brace.net/) Cluster on [Azure](h
 
 Assumes you have an Azure account with at least 4 cores spare (there is a 20 core limit on some free or trial Azure accounts).
 
-1.	Created an account with [Brisk](https://www.briskengine.com/), including entering my Azure account connection token details. 
+1.	Create an account with [Brisk](https://www.briskengine.com/), including entering your Azure account connection token details. 
 
-2.	Created new Service Bus namespace in [Azure Console](https://manage.windowsazure.com) (messaging not notification hub). You can use any name but you will need to refer to it later. It's possible the Brisk guys will optionally automate this step as part of provisioning.
+2.	Create new Service Bus namespace in [Azure Console](https://manage.windowsazure.com) (messaging not notification hub). You can use any name but you will need to refer to it later. 
 
   ![pic1b](https://cloud.githubusercontent.com/assets/7204669/6285597/62a9e218-b8f5-11e4-830f-6c7cd7d7b02c.PNG)   ![pic1](https://cloud.githubusercontent.com/assets/7204669/6285347/a0571138-b8f2-11e4-97dd-364ff7e6bf0c.jpg)
 
-3.	Created a new queue called *mbraceruntimetaskqueue* in that Service Bus namespace in the [Azure console](https://manage.windowsazure.com). It's possible the Brisk guys will optionally automate this step as part of provisioning.
-
-  ![pic2](https://cloud.githubusercontent.com/assets/7204669/6285349/a480035a-b8f2-11e4-8dd3-dfdad4a01c42.jpg)
-
-4.	Created new storage in the [Azure Console](https://manage.windowsazure.com) (any name). It's possible the Brisk guys will optionally automate this step as part of provisioning.
+3.	Create new storage in the [Azure Console](https://manage.windowsazure.com) (any name) or use an existing storage account.
 
   ![pic3](https://cloud.githubusercontent.com/assets/7204669/6285351/a8257724-b8f2-11e4-9955-ceb19c53b7b4.jpg)
 
-5.	Created a new MBrace cluster in [Brisk console](https://www.briskengine.com/#/dash) (any name), specifying the right data centre, and the appropriate service bus and storage.
+4.	Create a new MBrace cluster in [Brisk console](https://www.briskengine.com/#/dash) (any name), specifying the right data centre, and the appropriate service bus and storage.
 
   ![pic4](https://cloud.githubusercontent.com/assets/7204669/6285354/b0620876-b8f2-11e4-84c9-58e7acee52ab.jpg)
 
@@ -30,9 +26,9 @@ Assumes you have an Azure account with at least 4 cores spare (there is a 20 cor
   ![pic4c](https://cloud.githubusercontent.com/assets/7204669/6285357/b55bcf4c-b8f2-11e4-905c-b782ae7b9c6a.png)
 
 
-6.	You can fetch the connection string details directly from within Brisk by viewing the cluster details, Connections tab. These will be needed in the next step.
+5.	Fetch the connection string details directly from within Brisk by viewing the cluster details, Connections tab. These will be needed in the next step.
 
-7. Open Visual Studio, reset F# Interactive, enter the connection strings into the starter script:
+6. Open Visual Studio, reset F# Interactive, enter the connection strings into the starter script:
 
     ```fsharp
     let config = 
@@ -41,7 +37,7 @@ Assumes you have an Azure account with at least 4 cores spare (there is a 20 cor
             ServiceBusConnectionString = "Endpoint=sb://mbr  copy the rest here" }
     ```
 
-8. Called runtime.GetHandle(config):
+7. Called runtime.GetHandle(config):
     ```fsharp
     let runtime = Runtime.GetHandle(config)
     ```
@@ -55,7 +51,7 @@ Assumes you have an Azure account with at least 4 cores spare (there is a 20 cor
    val runtime : Runtime
     ```
 
-9. Called runtime.ShowWorkers():
+8. Call runtime.ShowWorkers():
     ```
     Workers                                                                                                        
 
@@ -75,17 +71,16 @@ Assumes you have an Azure account with at least 4 cores spare (there is a 20 cor
     Tasks : Active / Faulted / Completed / Total
     ```
 
-10. Attach logger:
+9. Attach logger:
     ```fsharp
     runtime.ClientLogger.Attach(Common.ConsoleLogger())
     ```
 
-11.	Create a cloud computation:
+10.	Create a cloud computation:
     ```fsharp
-    let getThread() = Thread.CurrentThread.ManagedThreadId
 
     let work0 =
-        cloud { return sprintf "run in the cloud on '%s' thread '%d'" Environment.MachineName (getThread()) }
+        cloud { return sprintf "run in the cloud on worker '%s' " Environment.MachineName }
         |> runtime.CreateProcess
     ```
    giving:
@@ -100,7 +95,7 @@ Assumes you have an Azure account with at least 4 cores spare (there is a 20 cor
     val work0 : Process<string>
     ```
 
-12. Check status:
+11. Check status:
     ```
     Process                                                                                                                                                                            
 
@@ -111,7 +106,7 @@ Assumes you have an Azure account with at least 4 cores spare (there is a 20 cor
     Tasks : Active / Faulted / Completed / Total
     ```
 
-13. Check result:
+12. Check result:
   ```fsharp
   work0.IsCompleted
   ```
@@ -123,6 +118,6 @@ Assumes you have an Azure account with at least 4 cores spare (there is a 20 cor
     ```fsharp
     work0.AwaitResultAsync() |> Async.RunSynchronously
 
-    val it : string = "run in the cloud on 'RD0003FF550024' thread '9'"
+    val it : string = "run in the cloud on worker 'RD0003FF550024' "
     ```
-Awesome.
+Awesome. Now go through the tutorials in the starter pack.
