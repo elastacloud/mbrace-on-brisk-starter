@@ -9,15 +9,11 @@ Assumes you have an Azure account with at least 4 cores spare (there is a 20 cor
 
 1.	Create an account with [Brisk](https://www.briskengine.com/), including entering your Azure account connection token details. 
 
-2.	Create new Service Bus namespace in [Azure Console](https://manage.windowsazure.com) (messaging not notification hub). You can use any name but you will need to refer to it later. 
-
-  ![pic1b](https://cloud.githubusercontent.com/assets/7204669/6285597/62a9e218-b8f5-11e4-830f-6c7cd7d7b02c.PNG)   ![pic1](https://cloud.githubusercontent.com/assets/7204669/6285347/a0571138-b8f2-11e4-97dd-364ff7e6bf0c.jpg)
-
-3.	Create new storage in the [Azure Console](https://manage.windowsazure.com) (any name) or use an existing storage account.
+2.	Create new storage in the [Azure Console](https://manage.windowsazure.com) (any name) or use an existing storage account.
 
   ![pic3](https://cloud.githubusercontent.com/assets/7204669/6285351/a8257724-b8f2-11e4-9955-ceb19c53b7b4.jpg)
 
-4.	Create a new MBrace cluster in [Brisk console](https://www.briskengine.com/#/dash) (any name), specifying the right data centre, and the appropriate service bus and storage.
+3.	Create a new MBrace cluster in [Brisk console](https://www.briskengine.com/#/dash) (any name), specifying the right data centre, and the appropriate service bus and storage.
 
   ![pic4](https://cloud.githubusercontent.com/assets/7204669/6285354/b0620876-b8f2-11e4-84c9-58e7acee52ab.jpg)
 
@@ -26,9 +22,9 @@ Assumes you have an Azure account with at least 4 cores spare (there is a 20 cor
   ![pic4c](https://cloud.githubusercontent.com/assets/7204669/6285357/b55bcf4c-b8f2-11e4-905c-b782ae7b9c6a.png)
 
 
-5.	Fetch the connection string details directly from within Brisk by viewing the cluster details, Connections tab. These will be needed in the next step.
+4.	Fetch the connection string details directly from within Brisk by viewing the cluster details, Connections tab. These will be needed in the next step.
 
-6. Open Visual Studio, reset F# Interactive, enter the connection strings into the starter script:
+5. Open Visual Studio, reset F# Interactive, enter the connection strings into the starter script:
 
     ```fsharp
     let config = 
@@ -37,7 +33,7 @@ Assumes you have an Azure account with at least 4 cores spare (there is a 20 cor
             ServiceBusConnectionString = "Endpoint=sb://mbr  copy the rest here" }
     ```
 
-7. Called runtime.GetHandle(config):
+6. Called runtime.GetHandle(config):
     ```fsharp
     let runtime = Runtime.GetHandle(config)
     ```
@@ -51,7 +47,7 @@ Assumes you have an Azure account with at least 4 cores spare (there is a 20 cor
    val runtime : Runtime
     ```
 
-8. Call runtime.ShowWorkers():
+7. Call runtime.ShowWorkers():
     ```
     Workers                                                                                                        
 
@@ -71,12 +67,12 @@ Assumes you have an Azure account with at least 4 cores spare (there is a 20 cor
     Tasks : Active / Faulted / Completed / Total
     ```
 
-9. Attach logger:
+8. Attach logger:
     ```fsharp
     runtime.ClientLogger.Attach(Common.ConsoleLogger())
     ```
 
-10.	Create a cloud computation:
+9.	Create a cloud computation:
     ```fsharp
 
     let work0 =
@@ -95,7 +91,7 @@ Assumes you have an Azure account with at least 4 cores spare (there is a 20 cor
     val work0 : Process<string>
     ```
 
-11. Check status:
+10. Check status:
     ```
     Process                                                                                                                                                                            
 
@@ -106,7 +102,7 @@ Assumes you have an Azure account with at least 4 cores spare (there is a 20 cor
     Tasks : Active / Faulted / Completed / Total
     ```
 
-12. Check result:
+11. Check result:
   ```fsharp
   work0.IsCompleted
   ```
