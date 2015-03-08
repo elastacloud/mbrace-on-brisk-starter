@@ -71,8 +71,8 @@ let namedCloudFiles = namedCloudFilesJob.AwaitResult()
 
 // Compute 
 let sumOfLengthsOfLinesJob =
-    let getLineCount (file : CloudFile) = cloud { let! lines = CloudFile.ReadAllLines file in return lines.Length }
-    let combineLineCounts = Cloud.lift2 (+)
+    let getLineCount (file : CloudFile) = local { let! lines = CloudFile.ReadAllLines file in return lines.Length }
+    let combineLineCounts c1 c2 = local { return c1 + c2 }
     namedCloudFiles 
     |> Distributed.mapReduce getLineCount combineLineCounts 0
     |> cluster.CreateProcess

@@ -25,37 +25,31 @@ let cluster = Runtime.GetHandle(config)
 /// first dividing according to the number of available workers, and then
 /// according to the number of available cores, and then performing sequential
 /// search on each machine.
-let rec distributedMultiCoreTryFind (predicate : 'T -> bool) (ts : 'T []) = 
-  cloud {
-
-    // GetSchedulingContext returns a union representing the current 
-    // parallelism semantics for executing workflow.
-    let! schedCtx = Cloud.GetSchedulingContext()
-
-    // Depending on the scheduling context we divide-and-conquer in different ways
-    match schedCtx with
-    | _ when ts.Length <= 1 -> return Array.tryFind predicate ts
-    | Sequential -> 
-        // Perform a sequential search
-        return Array.tryFind predicate ts
-
-    | ThreadParallel ->
-        // Divide inputs by processor count and evaluate with sequential semantics
-        let tss = Array.splitInto System.Environment.ProcessorCount ts
-        return!
-            tss
-            |> Array.map (distributedMultiCoreTryFind predicate >> Cloud.ToSequential)
-            |> Cloud.Choice
-
-    | Distributed ->
-        // Divide inputs by cluster size and evaluate with local parallelism semantics
+let distributedMultiCoreTryFind (predicate : 'T -> bool) (ts : 'T []) =
+    // sequential single-threaded search
+    let sequentialTryFind (ts : 'T []) = Array.tryFind predicate ts
+    // local multicore parallel search
+    let localmultiCoreTryFind (ts : 'T []) = local {
+        if ts.Length <= 1 then return sequentialTryFind ts
+        else
+            // Divide inputs by processor count and evaluate using Local.Choice
+            let tss = Array.splitInto System.Environment.ProcessorCount ts
+            return!
+                tss
+                |> Array.map (fun ts -> local { return sequentialTryFind ts })
+                |> Local.Choice
+    }
+    
+    // distributed parallel search
+    cloud {
+        // Divide inputs by cluster size and evaluate using Parallel.Choice
         let! clusterSize = Cloud.GetWorkerCount()
         let tss = Array.splitInto clusterSize ts
         return!
             tss
-            |> Array.map (distributedMultiCoreTryFind predicate >> Cloud.ToLocal)
+            |> Array.map localmultiCoreTryFind
             |> Cloud.Choice
-}
+    }
 
 #time
 
