@@ -42,13 +42,15 @@ let distributedMultiCoreTryFind (predicate : 'T -> bool) (ts : 'T []) =
     
     // distributed parallel search
     cloud {
-        // Divide inputs by cluster size and evaluate using Parallel.Choice
-        let! clusterSize = Cloud.GetWorkerCount()
-        let tss = Array.splitInto clusterSize ts
-        return!
-            tss
-            |> Array.map localmultiCoreTryFind
-            |> Cloud.Choice
+        if ts.Length <= 1 then return! sequentialTryFind ts
+        else
+            // Divide inputs by cluster size and evaluate using Parallel.Choice
+            let! clusterSize = Cloud.GetWorkerCount()
+            let tss = Array.splitInto clusterSize ts
+            return!
+                tss
+                |> Array.map localmultiCoreTryFind
+                |> Cloud.Choice
     }
 
 #time
