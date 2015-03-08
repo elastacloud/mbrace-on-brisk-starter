@@ -27,16 +27,16 @@ let cluster = Runtime.GetHandle(config)
 /// search on each machine.
 let distributedMultiCoreTryFind (predicate : 'T -> bool) (ts : 'T []) =
     // sequential single-threaded search
-    let sequentialTryFind (ts : 'T []) = Array.tryFind predicate ts
+    let sequentialTryFind (ts : 'T []) = local { return Array.tryFind predicate ts }
     // local multicore parallel search
     let localmultiCoreTryFind (ts : 'T []) = local {
-        if ts.Length <= 1 then return sequentialTryFind ts
+        if ts.Length <= 1 then return! sequentialTryFind ts
         else
             // Divide inputs by processor count and evaluate using Local.Choice
             let tss = Array.splitInto System.Environment.ProcessorCount ts
             return!
                 tss
-                |> Array.map (fun ts -> local { return sequentialTryFind ts })
+                |> Array.map sequentialTryFind
                 |> Local.Choice
     }
     
