@@ -2,12 +2,15 @@
 #load "lib/collections.fsx"
 #load "lib/mersenne.fsx"
 
+open System
+open System.IO
 open MBrace
 open MBrace.Azure
 open MBrace.Azure.Client
 open MBrace.Azure.Runtime
 open MBrace.Streams
-open System
+open MBrace.Workflows
+open Nessos.Streams
 
 (**
  In this tutorial you learn how to use Cloud.Choice to do a nondeterministic parallel computation using 
@@ -71,6 +74,7 @@ let tryFindMersenneCloud ts = distributedMultiCoreTryFind Primality.isMersennePr
 let searchJob = tryFindMersenneCloud exponentRange |> cluster.CreateProcess
 
 searchJob.ShowInfo()
+cluster.ShowWorkers()
 
 searchJob.AwaitResult()
 

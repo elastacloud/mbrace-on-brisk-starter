@@ -1,11 +1,14 @@
 ﻿#load "credentials.fsx"
 
+open System
+open System.IO
 open MBrace
 open MBrace.Azure
 open MBrace.Azure.Client
 open MBrace.Azure.Runtime
 open MBrace.Streams
-open System
+open MBrace.Workflows
+open Nessos.Streams
 
 (**
  This tutorial illustrates uploading data to Azure Blob Storage using CloudRef and CloudArray and then using the data.
@@ -35,22 +38,23 @@ let lengthOfData =
 **)
 
 // Here is the data we're going to upload, it's an array of arrays
-let arrayOfData = [| for i in 0 .. 10 -> [| for j in 0 .. 2000 -> (i,j) |] |] 
+let vectorOfData = [| for i in 0 .. 10 -> [| for j in 0 .. 2000 -> (i,j) |] |] 
 
 // Upload it as a partitioned CloudArray
-let arrayOfDataInCloud = CloudVector.New(arrayOfData,10000L) |> cluster.Run
+let vectorOfDataInCloud = CloudVector.New(vectorOfData,10000L) |> cluster.Run
 
 // Check the partition count
-arrayOfDataInCloud.PartitionCount
+vectorOfDataInCloud.PartitionCount
 
 
 // Now process the cloud array
 let lengthsJob = 
-    arrayOfDataInCloud
+    vectorOfDataInCloud
     |> CloudStream.ofCloudVector
     |> CloudStream.map (fun n -> n.Length)
     |> CloudStream.toArray
     |> cluster.CreateProcess
+
 
 // Check progress
 lengthsJob.ShowInfo()
@@ -65,12 +69,18 @@ let lengths =  lengthsJob.AwaitResult()
 // We process each element of the cloud array (each of which is itself an array).
 // We then sort the results and take the top 10 elements
 let sumAndSortJob = 
-    arrayOfDataInCloud
+    vectorOfDataInCloud
     |> CloudStream.ofCloudVector
     |> CloudStream.map (Array.sumBy (fun (i,j) -> i+j))
-    |> CloudStream.sortBy (fun n -> n) 10
+    |> CloudStream.sortBy id 10
     |> CloudStream.toArray
     |> cluster.CreateProcess
+
+
+let r = cloud { return [| 5;4; |] } |> cluster.Run
+
+
+
 
 // Check progress
 sumAndSortJob.ShowInfo()
