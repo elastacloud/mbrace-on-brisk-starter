@@ -1,11 +1,15 @@
 ﻿#load "credentials.fsx"
 #load "lib/sieve.fsx"
 
+open System
+open System.IO
 open MBrace
 open MBrace.Azure
 open MBrace.Azure.Client
 open MBrace.Azure.Runtime
-open System
+open MBrace.Streams
+open MBrace.Workflows
+open Nessos.Streams
 
 (**
  This tutorial illustrates using the CloudStream programming model that is part of MBrace for cloud-scheduled
@@ -17,10 +21,8 @@ open System
 // First connect to the cluster
 let cluster = Runtime.GetHandle(config)
 
-// streaming with LINQ-style distributed operations
-open Nessos.Streams
-open MBrace.Streams
-
+// Streaming with Drayad-LINQ-style distributed operations. Note that the default is to partition
+// the input work between all available workers.
 let streamComputationJob = 
     [| 1..100 |]
     |> CloudStream.ofArray

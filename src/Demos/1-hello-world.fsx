@@ -1,7 +1,14 @@
 ﻿#load "credentials.fsx"
+
+open System
+open System.IO
 open MBrace
+open MBrace.Azure
 open MBrace.Azure.Client
 open MBrace.Azure.Runtime
+open MBrace.Streams
+open MBrace.Workflows
+open Nessos.Streams
 
 (**
  This demo shows how to send a simple computation to an mbrace cluster
@@ -26,6 +33,7 @@ cluster.ShowWorkers()
 
 // We can view the history of processes
 cluster.ShowProcesses()
+
 
 // Create a cloud workflow, don't execute it
 let workflow = cloud { return "Hello world!" }

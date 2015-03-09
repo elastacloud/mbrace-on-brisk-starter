@@ -3,11 +3,14 @@
 #load "lib/sieve.fsx"
 
 open System
-open System.Collections
+open System.IO
 open MBrace
 open MBrace.Azure
 open MBrace.Azure.Client
 open MBrace.Azure.Runtime
+open MBrace.Streams
+open MBrace.Workflows
+open Nessos.Streams
 
 (**
  This demo illustrates the different way of calculating scalable workloads

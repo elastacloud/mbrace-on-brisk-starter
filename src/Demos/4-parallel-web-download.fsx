@@ -1,10 +1,14 @@
 ﻿#load "credentials.fsx"
 
+open System
+open System.IO
 open MBrace
 open MBrace.Azure
 open MBrace.Azure.Client
 open MBrace.Azure.Runtime
-open System
+open MBrace.Streams
+open MBrace.Workflows
+open Nessos.Streams
 
 (**
  This demo illustrates doing I/O tasks in parallel using the workers in the cluster
@@ -16,9 +20,7 @@ open System
 let cluster = Runtime.GetHandle(config)
 
 // Cloud parallel url-downloader
-open System.IO
 open System.Net
-open MBrace.Streams
 
 let urls = [| ("bing", "http://bing.com"); ("yahoo", "http://yahoo.com"); 
               ("google", "http://google.com"); ("msn", "http://msn.com") |]
@@ -33,7 +35,7 @@ let write (text: string) (stream: Stream) = async {
 /// Cloud workflow to download a file and wave it into cloud storage
 let download (name: string, uri: string) = cloud {
     let webClient = new WebClient()
-    let! text = Cloud.OfAsync <| webClient.AsyncDownloadString(Uri(uri))
+    let! text = Cloud.OfAsync (webClient.AsyncDownloadString(Uri(uri)))
     let! file = CloudFile.Create(write text, sprintf "pages/%s.html" name)
     return file
 }
@@ -57,8 +59,8 @@ let read (file: MBrace.CloudFile) = cloud {
     return (file.Path, text.Length)
 }
 
-// The same thing, just in one go
-let proc' = 
+// Read the files we just downloaded
+let contentsOfFiles = 
     files
     |> Array.map read
     |> Cloud.Parallel

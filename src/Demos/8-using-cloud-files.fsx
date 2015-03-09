@@ -1,10 +1,14 @@
 ﻿#load "credentials.fsx"
 
+open System
+open System.IO
 open MBrace
-open MBrace.Workflows
 open MBrace.Azure
 open MBrace.Azure.Client
 open MBrace.Azure.Runtime
+open MBrace.Streams
+open MBrace.Workflows
+open Nessos.Streams
 
 (**
  This tutorial illustrates creating and using cloud files, and then processing them using cloud streams.
@@ -36,8 +40,12 @@ let dp = cluster.DefaultStoreClient.FileStore.Directory.Create()
 
 // Upload data to a cloud file (held in blob storage) where we give the cloud file a name.
 let namedCloudFile = 
-    let lines = [for i in 0 .. 1000 -> "Item " + string i + ", " + string (i * 100) ] 
-    CloudFile.WriteAllLines(lines, path = dp.Path + "/file1") |> cluster.Run
+    cloud { 
+        let lines = [for i in 0 .. 1000 -> "Item " + string i + ", " + string (i * 100) ] 
+        let fileName = dp.Path + "/file1"
+        do! CloudFile.Delete(fileName) 
+        return! CloudFile.WriteAllLines(lines, path = fileName) 
+    } |> cluster.Run
 
 // Access the cloud file as part of a cloud job
 let numberOfLinesInNamedFile = 
@@ -58,8 +66,10 @@ let namedCloudFilesJob =
         // Note that we generate the contents of the files in the cloud - this cloud
         // computation below only captures and sends an integer.
         yield cloud { let lines = [for j in 1 .. 100 -> "File " + string i + ", Item " + string (i * 100 + j) + ", " + string (j + i * 100) ] 
-                      let! cloudFile =  CloudFile.WriteAllLines(lines,path=dp.Path + "/file" + string i) 
-                      return cloudFile } ]
+                      let nm = dp.Path + "/file" + string i
+                      do! CloudFile.Delete(path=nm) 
+                      return! CloudFile.WriteAllLines(lines,path=nm) 
+                      } ]
    |> Cloud.Parallel 
    |> cluster.CreateProcess
 

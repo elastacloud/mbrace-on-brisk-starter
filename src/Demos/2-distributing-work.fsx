@@ -1,10 +1,14 @@
 ﻿#load "credentials.fsx"
 
+open System
+open System.IO
 open MBrace
 open MBrace.Azure
 open MBrace.Azure.Client
 open MBrace.Azure.Runtime
+open MBrace.Streams
 open MBrace.Workflows
+open Nessos.Streams
 
 (**
  This demo shows how to start performing distributed workloads on MBrace clusters.
@@ -33,6 +37,8 @@ let lotsOfWorkAsOneWorkflow = lotsOfWorkflows |> Cloud.Parallel
 
 // Start the work as a cloud process
 let resultsJob = lotsOfWorkAsOneWorkflow |> cluster.CreateProcess
+
+cluster.ShowProcesses()
 
 // Get the results
 let results = resultsJob.AwaitResult()

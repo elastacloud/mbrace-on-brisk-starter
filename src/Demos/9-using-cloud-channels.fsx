@@ -1,11 +1,15 @@
 ﻿#load "credentials.fsx"
 
+open System
+open System.IO
+open System.Collections.Generic
 open MBrace
 open MBrace.Azure
 open MBrace.Azure.Client
 open MBrace.Azure.Runtime
 open MBrace.Streams
 open MBrace.Workflows
+open Nessos.Streams
 
 (**
  This tutorial illustrates creating and using cloud channels, which allow you to send messages between
@@ -26,17 +30,24 @@ CloudChannel.Send (send1, "hello") |> cluster.Run
 // Receive from the channel by scheduling a cloud process to do the receive 
 let msg = CloudChannel.Receive(recv1) |> cluster.Run
 
-cloud { for i in [ 0 .. 99 ] do 
-            do! send1 <-- sprintf "hello%d" i }
- |> cluster.Run
+let sendJob = 
+    cloud { for i in [ 0 .. 100 ] do 
+                do! send1.Send (sprintf "hello%d" i) }
+     |> cluster.CreateProcess
 
+sendJob.ShowInfo() 
 
 // Await for the 100 messages.  
-cloud { let results = ResizeArray()
-        for i in [ 0 .. 99 ] do 
-           let! msg = CloudChannel.Receive(recv1)
-           results.Add msg
-        return results.ToArray() }
- |> cluster.Run
+let receiveJob = 
+    cloud { let results = new ResizeArray<_>()
+            for i in [ 0 .. 100 ] do 
+               let! msg = CloudChannel.Receive(recv1)
+               results.Add msg
+            return results.ToArray() }
+     |> cluster.CreateProcess
+
+receiveJob.ShowInfo() 
+receiveJob.AwaitResult()
+
 
 
