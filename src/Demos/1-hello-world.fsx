@@ -6,11 +6,9 @@ open MBrace.Azure.Runtime
 (**
  This demo shows how to send a simple computation to an mbrace cluster
 
- A guide to creating the cluster is here: https://github.com/elastacloud/mbrace-on-brisk-starter/issues/4.
+ A guide to creating the cluster is here: https://github.com/elastacloud/mbrace-on-brisk-starter/
 
- Before you create your cluster you will need Azure Cloud Storage and an Azure Service Bus.
-
- *Make sure you have a queue called "mbraceruntimetaskqueue" in your Azure Service Bus before you create your cluster.*
+ Before you create your cluster you will need an Azure account and an Azure Cloud Storage connection.
 
  Before running, edit credentials.fsx to enter your connection strings.
 
