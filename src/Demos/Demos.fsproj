@@ -71,10 +71,12 @@
     <None Include="10-using-cloud-atoms.fsx" />
     <None Include="11-distributed-multicore-parallel-search.fsx" />
     <None Include="12-norvig%27s-spelling-corrector.fsx" />
+    <None Include="13-creating-new-serialized-things.fsx" />
     <None Include="credentials.fsx" />
     <None Include="lib\collections.fsx" />
     <None Include="lib\sieve.fsx" />
     <None Include="lib\mersenne.fsx" />
+    <None Include="999-using-other-cloud-assets.fsx" />
     <None Include="999-cloud-file-perf.fsx" />
     <None Include="999-process-create-perf.fsx" />
   </ItemGroup>

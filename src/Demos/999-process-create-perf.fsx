@@ -13,11 +13,15 @@ open Nessos.Streams
 let cluster = Runtime.GetHandle(config)
 
 let ps = 
- [for i in 0 .. 10000 ->
-   printfn "starting %d, time = %A" i System.DateTime.Now.TimeOfDay
+ [let time = ref System.DateTime.Now.TimeOfDay
+  for i in 0 .. 10000 ->
+   let newTime = System.DateTime.Now.TimeOfDay
+   printfn "starting %d, diff = %A" i (time.Value - newTime)
+   time := newTime
    cloud { return System.DateTime.Now }
     |> cluster.CreateProcess ]
 
 cluster.ShowProcesses()
+
 
 
