@@ -21,7 +21,7 @@ any cloud or web asset that can be referred to by name.
 
 [<AutoSerializable(true) ; Sealed; DataContract>]
 /// An abstract item that you want to be transparently serializable to the cluster
-type SerializableThing (data:string) =
+type CloudThing (data:string) =
     
     [<DataMember(Name = "Data")>]
     // The core data of the item
@@ -51,8 +51,8 @@ let cluster = MBrace.Azure.Client.Runtime.GetHandle(config)
 
 
 // The values to serialize
-let data1 = SerializableThing("hello")
-let data2 = SerializableThing("goodbye")
+let data1 = CloudThing("hello")
+let data2 = CloudThing("goodbye")
 
 let job = 
   cloud { do! Cloud.Sleep 1000
