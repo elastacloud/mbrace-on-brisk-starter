@@ -2,10 +2,12 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
-MinimumVisualStudioVersion = 10.0.40219.1
+MinimumVisualStudioVersion = 12.0.31101.0
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{E82BB040-2AC0-41DC-BF62-1D4620D4D501}"
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Demos", "src\Demos\Demos.fsproj", "{DF4661CC-A8B7-418F-A977-51A4B6CBC803}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Apps", "Apps", "{61692B99-2121-41C0-807B-012B91274787}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -22,5 +24,6 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{DF4661CC-A8B7-418F-A977-51A4B6CBC803} = {E82BB040-2AC0-41DC-BF62-1D4620D4D501}
+		{61692B99-2121-41C0-807B-012B91274787} = {E82BB040-2AC0-41DC-BF62-1D4620D4D501}
 	EndGlobalSection
 EndGlobal
