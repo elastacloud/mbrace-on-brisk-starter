@@ -30,15 +30,16 @@ atom.Id
 // Get the value of the atom.
 let atomValue = atom |> CloudAtom.Read |> cluster.Run
 
-// Transactionally update the value of the atom and return a result
+// Transactionally update the value of the atom and output a result
 let atomUpdateResult = CloudAtom.Transact (atom, fun x -> string x,x*x) |> cluster.Run
 
 // Have all workers atomically increment the counter in parallel
 cloud {
     let! clusterSize = Cloud.GetWorkerCount()
-    let updater _ = cloud { return! CloudAtom.Update (atom, fun i -> i + 1) }
     do!
-        Seq.init clusterSize updater
+        // Start a whole lot of updaters in parallel
+        [ for i in 1 .. clusterSize * 2 -> 
+             cloud { return! CloudAtom.Update (atom, fun i -> i + 1) } ]
         |> Cloud.Parallel
         |> Cloud.Ignore
 

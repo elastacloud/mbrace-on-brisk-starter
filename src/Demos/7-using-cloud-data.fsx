@@ -20,14 +20,14 @@ open Nessos.Streams
 let cluster = Runtime.GetHandle(config)
  
 // Here's some data
-let smallData = "Some data" 
+let data = "Some data" 
 
 // Upload the data to blob storage and return a handle to the stored data
-let cloudRefToSmallDataInBlob = smallData |> CloudRef.New |> cluster.Run
+let cloudData = data |> CloudCell.New |> cluster.Run
 
 // Run a cloud job which reads the blob and processes the data
 let lengthOfData = 
-    cloud { let! data = CloudRef.Read cloudRefToSmallDataInBlob 
+    cloud { let! data = CloudCell.Read cloudData 
             return data.Length }
     |> cluster.Run
 
@@ -37,22 +37,23 @@ let lengthOfData =
  
 **)
 
-// Here is the data we're going to upload, it's an array of arrays
-let vectorOfData = [| for i in 0 .. 10 -> [| for j in 0 .. 2000 -> (i,j) |] |] 
+// Here is the data we're going to upload, it's a 500K long array of tuples
+let vectorOfData = [| for i in 0 .. 1000 do for j in 0 .. i do yield (i,j) |]
 
-// Upload it as a partitioned CloudArray
-let vectorOfDataInCloud = CloudVector.New(vectorOfData,10000L) |> cluster.Run
+// Upload it as a partitioned CloudArray, 100000 bytes/chunk
+let cloudVector = CloudVector.New(vectorOfData,100000L) |> cluster.Run
+
 
 // Check the partition count
-vectorOfDataInCloud.PartitionCount
+cloudVector.PartitionCount
 
 
 // Now process the cloud array
 let lengthsJob = 
-    vectorOfDataInCloud
+    cloudVector
     |> CloudStream.ofCloudVector
-    |> CloudStream.map (fun n -> n.Length)
-    |> CloudStream.toArray
+    |> CloudStream.map (fun (a,b) -> a+b)
+    |> CloudStream.sum
     |> cluster.CreateProcess
 
 
@@ -67,19 +68,13 @@ let lengths =  lengthsJob.AwaitResult()
 
 // Now process the cloud array again, using CloudStream.
 // We process each element of the cloud array (each of which is itself an array).
-// We then sort the results and take the top 10 elements
+// We then sort the results (500K elements!) and take the top 10 elements
 let sumAndSortJob = 
-    vectorOfDataInCloud
+    cloudVector
     |> CloudStream.ofCloudVector
-    |> CloudStream.map (Array.sumBy (fun (i,j) -> i+j))
-    |> CloudStream.sortBy id 10
+    |> CloudStream.sortBy (fun (i,j) -> i * 10000 + j) 100
     |> CloudStream.toArray
     |> cluster.CreateProcess
-
-
-let r = cloud { return [| 5;4; |] } |> cluster.Run
-
-
 
 
 // Check progress

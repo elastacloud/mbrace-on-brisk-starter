@@ -60,6 +60,8 @@ let v1 = Vector<double>.Build.Random(10)
 
 v1 * m1 
 
+(m1 * m1.Inverse()).Determinant()
+
 //------------------------------------------
 // Step 3. Run the code on MBrace. Note that the DLLs from the packages are uploaded
 // automatically.
@@ -72,21 +74,20 @@ cluster.ShowWorkers()
 
 // Invert 100 150x150 matrices using managed code
 let managedMathJob = 
- [ for i in 1 .. 5 ->
-    cloud { Control.UseManaged()
-            let results = 
-                [ for i in [ 1 .. 20 ] do 
-                     let m = Matrix<double>.Build.Random(200,200) 
-                     yield (m * m.Inverse()).Determinant() ]
-            return List.average results } ]
-    |> Cloud.Parallel
+    [| 1 .. 100 |]
+    |> CloudStream.ofArray
+    |> CloudStream.map (fun i -> 
+            Control.UseManaged()
+            let m = Matrix<double>.Build.Random(200,200) 
+            (m * m.Inverse()).Determinant())
+    |> CloudStream.sum
     |> cluster.CreateProcess
-
 
 // Show the progress
 managedMathJob.ShowInfo()
 
-// Await the result
+
+// Await the result, we epxect ~100.0
 let managedMathResults = managedMathJob.AwaitResult()
 
 
@@ -104,7 +105,7 @@ cluster.ShowWorkers()
 
 let bytes1 = File.ReadAllBytes(__SOURCE_DIRECTORY__ + @"/script-packages/packages/MathNet.Numerics.MKL.Win-x64/content/libiomp5md.dll")
 let bytes2 = File.ReadAllBytes(__SOURCE_DIRECTORY__ + @"/script-packages/packages/MathNet.Numerics.MKL.Win-x64/content/MathNet.Numerics.MKL.dll")
-let UseMKL() = 
+let UseNative() = 
     let tmpPath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)
     if not (File.Exists(tmpPath + "/libiomp5md.dll")) then
         File.WriteAllBytes(tmpPath + "/libiomp5md.dll", bytes1)
@@ -117,7 +118,7 @@ let UseMKL() =
 
 // This can take a while first time you run it, because 'bytes2' is 41MB and needs to be uploaded
 let firstMklJob = 
-   cloud { UseMKL()
+   cloud { UseNative()
            let m = Matrix<double>.Build.Random(200,200) 
            return m.LU().Determinant }
     |> cluster.CreateProcess
@@ -127,21 +128,26 @@ firstMklJob.AwaitResult()
 
 // 1000 200x200 matrices, inverted using the MKL implementation
 let nativeMathJob = 
- [ for i in 1 .. 5 ->
-    cloud { UseMKL()
-            let results = 
-                [ for i in [ 1 .. 200 ] do 
-                     let m = Matrix<double>.Build.Random(200,200) 
-                     yield (m * m.Inverse()).Determinant() ]
-            return List.average results } ]
-    |> Cloud.Parallel
+    cloud { 
+        let! r = 
+            [| 1 .. 1000 |]
+            |> CloudStream.ofArray
+            |> CloudStream.map (fun i -> 
+                  UseNative()
+                  let m = Matrix<double>.Build.Random(200,200) 
+                  (m * m.Inverse()).Determinant())
+            |> CloudStream.sum
+        return r / 1000.0 }
     |> cluster.CreateProcess
+
+
 
 nativeMathJob.ShowInfo()
 cluster.ShowWorkers()
 cluster.ShowProcesses()
 
 nativeMathJob.AwaitResult()
+
 let timeNative  = nativeMathJob.ExecutionTime.TotalSeconds / 1000.0 
 let timeManaged = managedMathJob.ExecutionTime.TotalSeconds / 100.0  
 

@@ -36,7 +36,8 @@ let write (text: string) (stream: Stream) = async {
 let download (name: string, uri: string) = cloud {
     let webClient = new WebClient()
     let! text = Cloud.OfAsync (webClient.AsyncDownloadString(Uri(uri)))
-    let! file = CloudFile.Create(write text, sprintf "pages/%s.html" name)
+    do! CloudFile.Delete(sprintf "pages/%s.html" name)
+    let! file = CloudFile.WriteAllText(text,path=sprintf "pages/%s.html" name)
     return file
 }
 
