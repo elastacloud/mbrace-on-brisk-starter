@@ -10,11 +10,8 @@ open MBrace.Azure
 
 (** 
 
-This tutorial shows you how to build a new serializable abstraction for another cloud
-asset referred to by name.  In this case we build an abstraction over an Azure storage queue (not
-an Azure service bus queue, which is a different beast).  Similar techniques can be used for
-any cloud or web asset that can be referred to by name.
-
+This tutorial shows you how to build a new serializable abstraction, e.g. 
+for another cloud asset referred to by name.  
 
 **)
 
