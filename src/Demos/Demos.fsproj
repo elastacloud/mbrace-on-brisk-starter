@@ -76,6 +76,7 @@
     <None Include="lib\collections.fsx" />
     <None Include="lib\sieve.fsx" />
     <None Include="lib\mersenne.fsx" />
+    <None Include="20-advanced-core-internals.fsx" />
     <None Include="999-cloud-file-perf.fsx" />
     <None Include="999-process-create-perf.fsx" />
     <None Include="999-misc-cpu-perf.fsx" />
