@@ -21,7 +21,7 @@ open Nessos.Streams
 // First connect to the cluster
 let cluster = Runtime.GetHandle(config)
 
-// Streaming with Drayad-LINQ-style distributed operations. Note that the default is to partition
+// Parallel distributed data workflows. The default is to partition
 // the input work between all available workers.
 let streamComputationJob = 
     [| 1..100 |]
@@ -47,6 +47,10 @@ streamComputationJob.AwaitResult()
 
 let numbers = [| for i in 1 .. 30 -> 50000000 |]
 
+// The default is to partition the input array between all available workers.
+//
+// You can also use CloudStream.withDegreeOfParallelism to specify the degree
+// of partitioning of the stream at any point in the pipeline.
 let computePrimesJob = 
     numbers
     |> CloudStream.ofArray

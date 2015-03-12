@@ -47,8 +47,9 @@ let lineWritePerf, bigCloudTextFiles =
     timeSizes [ 1; 10; 100 ] <| fun sz -> 
         cloud { let lines = [| for i in 0 .. 10000 * sz-> "Some text that takes about one hundred bytes to store in default encoding if you look you can check" |] 
                 // This delete is needed because of https://github.com/mbraceproject/MBrace.Azure/issues/21
-                do! cloud { try do! CloudFile.Delete(path=dp.Path + sprintf "/big-lines-%d" sz) with _ -> () }
-                return! CloudFile.WriteAllLines(lines,path=dp.Path + sprintf "/big-lines-%d" sz)  }
+                do! CloudFile.Delete(path=dp.Path + sprintf "/big-lines-%d" sz) 
+                let! file = CloudFile.WriteAllLines(lines,path=dp.Path + sprintf "/big-lines-%d" sz)  
+                return file }
 
 // [(1, 0.6813008); (10, 1.200415); (100, 6.4491432)]
 // [(1, 1.133324); (10, 1.5016807); (100, 6.7401698)]
@@ -56,8 +57,9 @@ let textWritePerf, _ =
     timeSizes [ 1; 10; 100 ] <| fun sz -> 
         cloud { let text = System.String(' ', sz * 1024 * 1024)
                 // This delete is needed because of https://github.com/mbraceproject/MBrace.Azure/issues/21
-                do! cloud { try do! CloudFile.Delete(path=dp.Path + sprintf "/big-text-%d" sz) with _ -> () }
-                return! CloudFile.WriteAllText(text,path=dp.Path + sprintf "/big-text-%d" sz)  }
+                do! CloudFile.Delete(path=dp.Path + sprintf "/big-text-%d" sz) 
+                let! file = CloudFile.WriteAllText(text,path=dp.Path + sprintf "/big-text-%d" sz)  
+                return file }
 
 // #1   [(1, 0.5426625); (10, 2.0498235); (100, 21.1039728)]
 // #2   [(1, 0.8444004); (10, 1.9827996); (100, 21.1224367)]
@@ -67,8 +69,9 @@ let bytesWritePerf, bigCloudByteFiles =
     timeSizes [ 1; 10; 100; 1000 ] <| fun sz -> 
         cloud { let data = [| for i in 0 .. sz * 1024 * 1024 -> byte i |] 
                 // This delete is needed because of https://github.com/mbraceproject/MBrace.Azure/issues/21
-                do! cloud { try do! CloudFile.Delete(path=dp.Path + sprintf "/big-bytes-%d" sz) with _ -> () }
-                return! CloudFile.WriteAllBytes (data,path=dp.Path + sprintf "/big-bytes-%d" sz)  }
+                do! CloudFile.Delete(path=dp.Path + sprintf "/big-bytes-%d" sz) 
+                let! file = CloudFile.WriteAllBytes (data,path=dp.Path + sprintf "/big-bytes-%d" sz)  
+                return file }
 
 // #1   [(1, 3.1591611); (10, 0.5312207); (100, 3.0732776)]
 // #2   [(1, 0.2813198); (10, 0.4259485); (100, 2.6784925)]

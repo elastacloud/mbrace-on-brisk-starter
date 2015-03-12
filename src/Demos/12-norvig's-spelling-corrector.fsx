@@ -43,8 +43,9 @@ let download (uri: string) = cloud {
         |> Array.chunkBySize 10000
         |> Array.mapi (fun index lines -> 
              local { 
-                try do! CloudFile.Delete(path = sprintf "text/%d.txt" index) with _ -> ()
-                return! CloudFile.WriteAllLines(lines, path = sprintf "text/%d.txt" index) })
+                do! CloudFile.Delete(path = sprintf "text/%d.txt" index) 
+                let! file = CloudFile.WriteAllLines(lines, path = sprintf "text/%d.txt" index) 
+                return file })
         |> Local.Parallel
     return files
 }
