@@ -58,7 +58,7 @@ let files = downloadJob.AwaitResult()
 
 let fileSizesJob = 
     files
-    |> Distributed.map CloudFile.GetSize
+    |> DivideAndConquer.map CloudFile.GetSize
     |> cluster.CreateProcess 
 
 fileSizesJob.Completed
