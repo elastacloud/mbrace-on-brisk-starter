@@ -20,8 +20,10 @@ open MBrace.Continuation // access continuation internals
 // create a simple System.Threading.CancellationTokenSource wrapper
 let mkCTS () = MBrace.Runtime.InMemory.InMemoryCancellationTokenSource()
 
-Workflow.RunSynchronously(hello, ResourceRegistry.Empty, mkCTS().Token)
-Workflow.Start(hello, ResourceRegistry.Empty, mkCTS().Token)
+//#nowarn "444" // uncomment to disable warnings
+
+Cloud.RunSynchronously(hello, ResourceRegistry.Empty, mkCTS().Token)
+Cloud.Start(hello, ResourceRegistry.Empty, mkCTS().Token)
 
 // 3. Run cloud workflow with user-defined continuations
 
@@ -32,20 +34,20 @@ let cont<'T> =
         Cancellation = fun _ _ -> printfn "Canceled"
     }
 
-Workflow.StartWithContinuations(cloud { return 42 }, cont, ResourceRegistry.Empty, mkCTS().Token)
-Workflow.StartWithContinuations(cloud { failwith "boom"}, cont, ResourceRegistry.Empty, mkCTS().Token)
+Cloud.StartWithContinuations(cloud { return 42 }, cont, ResourceRegistry.Empty, mkCTS().Token)
+Cloud.StartWithContinuations(cloud { failwith "boom"}, cont, ResourceRegistry.Empty, mkCTS().Token)
 
 // 5. Cloud.FromContinuations
 
 let ret t = Cloud.FromContinuations(fun ctx cont -> printfn "returning %A" t ; cont.Success ctx t)
 
-Workflow.RunSynchronously(ret 42, ResourceRegistry.Empty, mkCTS().Token)
+Cloud.RunSynchronously(ret 42, ResourceRegistry.Empty, mkCTS().Token)
 
 // 5. Cloud.Parallel:
 
 let parallelWorkflow = Cloud.Parallel [ cloud { return 42 } ; cloud { return 42 } ]
 
-Workflow.RunSynchronously(parallelWorkflow, ResourceRegistry.Empty, mkCTS().Token) // fails with ResourceNotFoundException
+Cloud.RunSynchronously(parallelWorkflow, ResourceRegistry.Empty, mkCTS().Token) // fails with ResourceNotFoundException
 
 // 6. Example: implementing our own brand of parallelism
 
@@ -58,7 +60,7 @@ type ThreadPoolParallel () =
     // execute workflow with provided continuations as thread pool work item
     let runInThreadPool ctx scont econt ccont (workflow : Cloud<'T>) =
         let cont = { Success = scont ; Exception = econt ; Cancellation = ccont }
-        System.Threading.ThreadPool.QueueUserWorkItem(fun _ -> Workflow.StartWithContinuations(workflow, cont, ctx))
+        System.Threading.ThreadPool.QueueUserWorkItem(fun _ -> Cloud.StartWithContinuations(workflow, cont, ctx)) |> ignore
         
     interface IParallelProvider with
         member __.Parallel(workflows : Cloud<'T> []) =
@@ -92,7 +94,7 @@ type ThreadPoolParallel () =
 type Cloud with
     // use parallelism as provided by execution context
     static member MyParallel(workflows : seq<Cloud<'T>>) : Cloud<'T []> = cloud {
-        let! provider = Workflow.GetResource<IParallelProvider> ()
+        let! provider = Cloud.GetResource<IParallelProvider> ()
         return! provider.Parallel(Seq.toArray workflows)
     }
 
@@ -100,7 +102,7 @@ type Cloud with
     static member Run(workflow : Cloud<'T>) =
         // populate a resource registry with our own thread pool parallel provider implementation
         let resources = ResourceRegistry.Empty.Register<IParallelProvider>(new ThreadPoolParallel())
-        Workflow.RunSynchronously(workflow, resources, mkCTS().Token)
+        Cloud.RunSynchronously(workflow, resources, mkCTS().Token)
 
 
 // test the workflow

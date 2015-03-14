@@ -1,12 +1,4 @@
-﻿#I "../../packages/MBrace.Azure.Client/tools"
-
-#r "FsPickler.dll"
-#r "MBrace.Azure.Client.dll"
-#r "MBrace.Azure.Runtime.dll"
-#r "MBrace.Core.dll"
-#r "MBrace.Streams.dll"
-#r "Streams.Core.dll"
-#r "Vagabond.dll"
+﻿#load "../../packages/MBrace.Azure.Client/bootstrap.fsx"
 
 namespace global
 
