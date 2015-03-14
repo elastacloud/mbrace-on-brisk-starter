@@ -7,13 +7,13 @@ Steps I used to create an [MBrace](http://www.m-brace.net/) Cluster on [Azure](h
 
 Assumes you have an Azure account with at least 4 cores spare (there is a 20 core limit on some free or trial Azure accounts).
 
-1.	Create an account with [Brisk](https://www.briskengine.com/), including entering your Azure account connection token details. 
+1.	Create an account with [Brisk](https://www.briskengine.com/), including entering your Azure account connection token details. When you select "Download Azure settings" Brisk will automatically take you to the Azure page that downloads a settings file.  You then load those settings into Brisk to complete creating your account.
 
-2.	Create new storage in the [Azure Console](https://manage.windowsazure.com) (any name) or use an existing storage account.
+2.	Create a new storage account in the [Azure Console](https://manage.windowsazure.com) (any name) or use an existing storage account.  Keep an eye on which data center you created your storage account in.
 
   ![pic3](https://cloud.githubusercontent.com/assets/7204669/6285351/a8257724-b8f2-11e4-9955-ceb19c53b7b4.jpg)
 
-3.	Create a new MBrace cluster in [Brisk console](https://www.briskengine.com/#/dash) (any name), specifying the right data centre, and the appropriate service bus and storage.
+3.	Create a new MBrace cluster in [Brisk console](https://www.briskengine.com/#/dash) (use any name). Specify the right data centre (the same one as the storage account) and the right storage account.  This will take 5-10 minutes.
 
   ![pic4](https://cloud.githubusercontent.com/assets/7204669/6285354/b0620876-b8f2-11e4-84c9-58e7acee52ab.jpg)
 
@@ -22,18 +22,18 @@ Assumes you have an Azure account with at least 4 cores spare (there is a 20 cor
   ![pic4c](https://cloud.githubusercontent.com/assets/7204669/6285357/b55bcf4c-b8f2-11e4-905c-b782ae7b9c6a.png)
 
 
-4.	Fetch the connection string details directly from within Brisk by viewing the cluster details, Connections tab. These will be needed in the next step.
+4.	Fetch the connection string details for your cluster  from Brisk by clicking on your cluster details, and looking at the Connection Strings tab. These will be needed in the next step.
 
-5. Open Visual Studio, reset F# Interactive, enter the connection strings into the starter script:
+5. Download the contents of this repository as a ZIP of clone and open in Visual Studio 2013.  If you don't have Visual Studio 2013, see http://fsharp.org/use/windows to get it.
+
+6. In Visual Studio 2013, reset F# Interactive, enter the connection strings into the ``credentials.fsx``  script:
 
     ```fsharp
-    let config = 
-        { Configuration.Default with
-            StorageConnectionString = "DefaultEndpointsProtocol=  copy the rest here"
-            ServiceBusConnectionString = "Endpoint=sb://mbr  copy the rest here" }
+    let myStorageConnectionString = "DefaultEndpointsProtocol=..."
+    let myServiceBusConnectionString = "Endpoint=sb://brisk..."
     ```
 
-6. Called runtime.GetHandle(config):
+7. Called runtime.GetHandle(config):
     ```fsharp
     let runtime = Runtime.GetHandle(config)
     ```
@@ -47,7 +47,7 @@ Assumes you have an Azure account with at least 4 cores spare (there is a 20 cor
    val runtime : Runtime
     ```
 
-7. Call runtime.ShowWorkers():
+8. Call runtime.ShowWorkers():
     ```
     Workers                                                                                                        
 
@@ -65,11 +65,6 @@ Assumes you have an Azure account with at least 4 cores spare (there is a 20 cor
     ----  ----------  -----  ---------  --------------  -----  -----------  ----------  --------------- 
 
     Tasks : Active / Faulted / Completed / Total
-    ```
-
-8. Attach logger:
-    ```fsharp
-    runtime.ClientLogger.Attach(Common.ConsoleLogger())
     ```
 
 9.	Create a cloud computation:
@@ -116,4 +111,5 @@ Assumes you have an Azure account with at least 4 cores spare (there is a 20 cor
 
     val it : string = "run in the cloud on worker 'RD0003FF550024' "
     ```
-Awesome. Now go through the tutorials in the starter pack.
+Awesome. Now go through the tutorials in this starter pack.  Read things carefully and take it step by step, don't execute the entire scripts in F# Interactive but rather take the time to execute each piece of code and understand what it's doing.
+
