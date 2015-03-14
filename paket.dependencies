@@ -1,3 +1,4 @@
 source https://nuget.org/api/v2
 
-nuget MBrace.Azure.Client 0.6.1-alpha
+nuget MBrace.Azure.Client 0.6.4-alpha
+
