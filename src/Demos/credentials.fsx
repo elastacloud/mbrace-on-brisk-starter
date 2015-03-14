@@ -2,7 +2,6 @@
 
 #r "FsPickler.dll"
 #r "MBrace.Azure.Client.dll"
-#r "MBrace.Azure.Runtime.Common.dll"
 #r "MBrace.Azure.Runtime.dll"
 #r "MBrace.Core.dll"
 #r "MBrace.Streams.dll"
