@@ -6,10 +6,8 @@ open System.Collections.Generic
 open MBrace
 open MBrace.Azure
 open MBrace.Azure.Client
-open MBrace.Azure.Runtime
 open MBrace.Streams
 open MBrace.Workflows
-open Nessos.Streams
 
 (**
  This tutorial illustrates creating and using cloud channels, which allow you to send messages between
