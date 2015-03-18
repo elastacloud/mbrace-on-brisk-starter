@@ -5,10 +5,8 @@ open System.IO
 open MBrace
 open MBrace.Azure
 open MBrace.Azure.Client
-open MBrace.Azure.Runtime
 open MBrace.Streams
 open MBrace.Workflows
-open Nessos.Streams
 
 (**
  This tutorial illustrates uploading data to Azure Blob Storage using CloudRef and CloudArray and then using the data.

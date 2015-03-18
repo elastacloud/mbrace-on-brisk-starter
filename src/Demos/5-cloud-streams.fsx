@@ -6,10 +6,8 @@ open System.IO
 open MBrace
 open MBrace.Azure
 open MBrace.Azure.Client
-open MBrace.Azure.Runtime
 open MBrace.Streams
 open MBrace.Workflows
-open Nessos.Streams
 
 (**
  This tutorial illustrates using the CloudStream programming model that is part of MBrace for cloud-scheduled
